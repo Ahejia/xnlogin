@@ -25,6 +25,10 @@ public class UserController {
         if(null == password){
             return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
         }
+        if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(account) || StringUtils
+        .isEmpty(emailAddress)){
+            return CommonResult.fail().setMsg("用户名，账号，邮箱未填写完整，请重新填写");
+        }
         if(StringUtils.isNotEmpty(userName)){
             Xnlogin xnlogin = userService.getByUserName(userName);
             if(xnlogin != null){
@@ -56,5 +60,43 @@ public class UserController {
         xnlogin.setUserName(userName);
         userService.insert(xnlogin);
         return CommonResult.success().code(CodeEnum.REGISTER_SUCCESS.getCode()).setMsg(CodeEnum.REGISTER_SUCCESS.getDesc());
+    }
+    @RequestMapping("/login")
+
+    public CommonResult login(@RequestParam(value = "hjAccount",required = false) String hjAccount,
+                              @RequestParam(value = "password",required = false)String password){
+        if(null == password){
+            return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
+        }
+        //账号对应其中一个就行
+        if(StringUtils.isNotEmpty(hjAccount)){
+            //对比用户名,邮箱，账号是否存在数据
+            Xnlogin xnlogin1 = userService.getByUserName(hjAccount);
+            if(xnlogin1 != null){
+                if(xnlogin1.getPassword().equals(password)){
+                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
+                }else{
+                    return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
+                }
+            }
+            Xnlogin xnlogin2 = userService.getByAccount(hjAccount);
+            if(xnlogin2 != null){
+                if(xnlogin2.getPassword().equals(password)){
+                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
+                }else{
+                    return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
+                }
+            }
+            Xnlogin xnlogin3 = userService.getByEmail(hjAccount);
+            if(xnlogin3 != null){
+                if(xnlogin3.getPassword().equals(password)){
+                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
+                }else{
+                    return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
+                }
+            }
+            return CommonResult.fail().setMsg("不存在此账号，请重新输入").code(CodeEnum.LOGIN_FAILED.getCode());
+        }
+        return CommonResult.fail().setMsg("用户名/邮箱/账号不能为空").code(CodeEnum.FAILED.getCode());
     }
 }

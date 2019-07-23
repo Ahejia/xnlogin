@@ -44,6 +44,7 @@ public class CommonResult implements Serializable {
         CommonResult commonResult = new CommonResult();
         commonResult.setSuccess(false);
         commonResult.setMsg("fail");
+        commonResult.setCode(CodeEnum.FAILED.getCode());
         return commonResult;
     }
 
