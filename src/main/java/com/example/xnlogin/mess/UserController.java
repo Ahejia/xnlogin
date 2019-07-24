@@ -18,24 +18,15 @@ public class UserController {
     @RequestMapping("/register")
     public CommonResult register(@RequestParam(value = "userName",required = false) String userName,
                                  @RequestParam(value = "emailAddress",required = false)String emailAddress,
-                                 @RequestParam(value = "account",required = false)String account,
                                  @RequestParam(value = "password",required = false)String password,
-                                 @RequestParam(value = "unit",required = false)String unit,
-                                 @RequestParam(value = "identity",required = false)Integer identity){
+                                 @RequestParam(value = "unit",required = false)String unit){
         if(null == password){
             return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
         }
-        if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(account) || StringUtils
-        .isEmpty(emailAddress)){
-            return CommonResult.fail().setMsg("用户名，账号，邮箱未填写完整，请重新填写");
+        if(StringUtils.isEmpty(userName)  || StringUtils.isEmpty(emailAddress)){
+            return CommonResult.fail().setMsg("用户名，邮箱未填写完整，请重新填写");
         }
-        if(StringUtils.isNotEmpty(userName)){
-            Xnlogin xnlogin = userService.getByUserName(userName);
-            if(xnlogin != null){
-                //用户存在，直接返回
-                return CommonResult.fail().setMsg(CodeEnum.REGISTER_FAILED.getDesc()).code(CodeEnum.REGISTER_FAILED.getCode());
-            }
-        }
+
         if(StringUtils.isNotEmpty(emailAddress)){
             Xnlogin xnlogin = userService.getByEmail(emailAddress);
             if(xnlogin != null){
@@ -43,18 +34,10 @@ public class UserController {
                 return CommonResult.fail().setMsg(CodeEnum.REGISTER_FAILED.getDesc()).code(CodeEnum.REGISTER_FAILED.getCode());
             }
         }
-        if(StringUtils.isNotEmpty(account)){
-            Xnlogin xnlogin = userService.getByAccount(account);
-            if(xnlogin != null){
-                //用户存在，直接返回
-                return CommonResult.fail().setMsg(CodeEnum.REGISTER_FAILED.getDesc()).code(CodeEnum.REGISTER_FAILED.getCode());
-            }
-        }
+
         //注册
         Xnlogin xnlogin = new Xnlogin();
-        xnlogin.setAccount(account);
         xnlogin.setEmailAddress(emailAddress);
-        xnlogin.setIdentity(identity);
         xnlogin.setUnit(unit);
         xnlogin.setPassword(password);
         xnlogin.setUserName(userName);
@@ -62,7 +45,6 @@ public class UserController {
         return CommonResult.success().code(CodeEnum.REGISTER_SUCCESS.getCode()).setMsg(CodeEnum.REGISTER_SUCCESS.getDesc());
     }
     @RequestMapping("/login")
-
     public CommonResult login(@RequestParam(value = "hjAccount",required = false) String hjAccount,
                               @RequestParam(value = "password",required = false)String password){
         if(null == password){
@@ -79,14 +61,7 @@ public class UserController {
                     return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
                 }
             }
-            Xnlogin xnlogin2 = userService.getByAccount(hjAccount);
-            if(xnlogin2 != null){
-                if(xnlogin2.getPassword().equals(password)){
-                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
-                }else{
-                    return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
-                }
-            }
+
             Xnlogin xnlogin3 = userService.getByEmail(hjAccount);
             if(xnlogin3 != null){
                 if(xnlogin3.getPassword().equals(password)){

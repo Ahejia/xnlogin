@@ -4,7 +4,7 @@ package com.example.xnlogin.enums;
  * 状态码的枚举
  */
 public enum CodeEnum {
-    
+
     SUCCESS(999, "成功"),
     LOGIN_SUCCESS(666, "登录成功"),
     REGISTER_SUCCESS(888, "注册成功"),

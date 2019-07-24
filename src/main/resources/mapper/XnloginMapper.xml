@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.example.xnlogin.mess.Xnlogin" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
-    <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="identity" property="identity" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -13,7 +12,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, email_address, account, `identity`, user_name, password, unit, create_time, update_time
+    id, email_address, `identity`, user_name, password, unit, create_time, update_time
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -35,9 +34,6 @@
       <if test="emailAddress != null" >
         email_address,
       </if>
-      <if test="account != null" >
-        account,
-      </if>
       <if test="identity != null" >
         `identity`,
       </if>
@@ -50,12 +46,6 @@
       <if test="unit != null" >
         unit,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -63,9 +53,6 @@
       </if>
       <if test="emailAddress != null" >
         #{emailAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
       </if>
       <if test="identity != null" >
         #{identity,jdbcType=INTEGER},
@@ -79,12 +66,6 @@
       <if test="unit != null" >
         #{unit,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
   <update id="update" parameterType="com.example.xnlogin.mess.Xnlogin" >
@@ -92,9 +73,6 @@
     <set >
       <if test="emailAddress != null" >
         email_address = #{emailAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="account != null" >
-        account = #{account,jdbcType=VARCHAR},
       </if>
       <if test="identity != null" >
         `identity` = #{identity,jdbcType=INTEGER},
@@ -107,12 +85,6 @@
       </if>
       <if test="unit != null" >
         unit = #{unit,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -129,12 +101,5 @@
     select <include refid="Base_Column_List"/>
     from xnlogin
     where email_address = #{emailAddress}
-  </select>
-
-  <!--账号查询-->
-  <select id="getByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from xnlogin
-    where account = #{account}
   </select>
 </mapper>

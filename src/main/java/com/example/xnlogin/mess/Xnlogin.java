@@ -7,8 +7,6 @@ public class Xnlogin {
 
     private String emailAddress;
 
-    private String account;
-
     private Integer identity;
 
     private String userName;
@@ -35,14 +33,6 @@ public class Xnlogin {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress == null ? null : emailAddress.trim();
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
     }
 
     public Integer getIdentity() {
@@ -98,7 +88,6 @@ public class Xnlogin {
         return "Xnlogin{" +
                 "id=" + id +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", account='" + account + '\'' +
                 ", identity=" + identity +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
