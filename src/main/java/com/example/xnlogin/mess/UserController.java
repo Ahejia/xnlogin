@@ -56,7 +56,7 @@ public class UserController {
             Xnlogin xnlogin1 = userService.getByUserName(hjAccount);
             if(xnlogin1 != null){
                 if(xnlogin1.getPassword().equals(password)){
-                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
+                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc()).addResult("id",xnlogin1.getId());
                 }else{
                     return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
                 }
@@ -65,7 +65,7 @@ public class UserController {
             Xnlogin xnlogin3 = userService.getByEmail(hjAccount);
             if(xnlogin3 != null){
                 if(xnlogin3.getPassword().equals(password)){
-                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc());
+                    return CommonResult.success().code(CodeEnum.LOGIN_SUCCESS.getCode()).setMsg(CodeEnum.LOGIN_SUCCESS.getDesc()).addResult("id",xnlogin3.getId());
                 }else{
                     return CommonResult.fail().code(CodeEnum.PASSWORD_IS_FALSE.getCode()).setMsg(CodeEnum.PASSWORD_IS_FALSE.getDesc());
                 }
