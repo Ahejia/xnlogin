@@ -18,10 +18,6 @@ public class UserService {
         return xnloginMapper.getByEmail(emailAddress);
     }
 
-    public Xnlogin getByAccount(String account){
-        return xnloginMapper.getByAccount(account);
-    }
-
     public void insert(Xnlogin xnlogin)throws Exception{
         xnloginMapper.insert(xnlogin);
     }

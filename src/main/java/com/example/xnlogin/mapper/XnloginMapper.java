@@ -9,16 +9,15 @@ public interface XnloginMapper extends IBaseDao<Xnlogin> {
 
     /**
      * 用户名查询信息
+     * @param userName 用户名
+     * @return Xnlogin
      */
     Xnlogin getByUserName(String userName);
 
     /**
      * 用户名查询信息
+     * @param emailAddress 邮箱
+     * @return Xnlogin
      */
     Xnlogin getByEmail(String emailAddress);
-
-    /**
-     * 用户名查询信息
-     */
-    Xnlogin getByAccount(String account);
 }
