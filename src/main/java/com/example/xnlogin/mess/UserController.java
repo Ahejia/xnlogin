@@ -1,5 +1,6 @@
 package com.example.xnlogin.mess;
 
+import com.example.xnlogin.base.BaseController;
 import com.example.xnlogin.base.CommonResult;
 import com.example.xnlogin.base.MessageCodeEnum;
 import com.example.xnlogin.enums.CodeEnum;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     private UserService userService;
     @RequestMapping("/register")
     public CommonResult register(@RequestParam(value = "userName",required = false) String userName,
                                  @RequestParam(value = "emailAddress",required = false)String emailAddress,
                                  @RequestParam(value = "password",required = false)String password,
-                                 @RequestParam(value = "unit",required = false)String unit){
+                                 @RequestParam(value = "unit",required = false)String unit)throws Exception{
         if(null == password){
             return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
         }
@@ -46,7 +47,7 @@ public class UserController {
     }
     @RequestMapping("/login")
     public CommonResult login(@RequestParam(value = "hjAccount",required = false) String hjAccount,
-                              @RequestParam(value = "password",required = false)String password){
+                              @RequestParam(value = "password",required = false)String password)throws Exception{
         if(null == password){
             return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
         }

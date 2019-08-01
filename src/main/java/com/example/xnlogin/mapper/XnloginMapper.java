@@ -1,16 +1,11 @@
 package com.example.xnlogin.mapper;
 
+import com.example.xnlogin.base.IBaseDao;
 import com.example.xnlogin.mess.Xnlogin;
 import org.apache.ibatis.annotations.Mapper;
 @Mapper
-public interface XnloginMapper {
-    void deleteById(Integer id);
+public interface XnloginMapper extends IBaseDao<Xnlogin> {
 
-    void insert(Xnlogin record);
-
-    Xnlogin getById(Integer id);
-
-    void update(Xnlogin record);
 
     /**
      * 用户名查询信息

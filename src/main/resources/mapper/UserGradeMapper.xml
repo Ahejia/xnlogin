@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.xnlogin.mapper.UserGradeMapper" >
+  <resultMap id="BaseResultMap" type="com.example.xnlogin.mess.UserGrade" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="datainfo" property="datainfo" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="timer" property="timer" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, datainfo, score, timer, create_time
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_grade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from user_grade
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.xnlogin.mess.UserGrade" >
+    insert into user_grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="datainfo != null" >
+        datainfo,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="timer != null" >
+        timer,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="datainfo != null" >
+        #{datainfo,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="timer != null" >
+        #{timer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.example.xnlogin.mess.UserGrade" >
+    update user_grade
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="datainfo != null" >
+        datainfo = #{datainfo,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="timer != null" >
+        timer = #{timer,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--用户编号查询数据-->
+  <select id="getByUserId" parameterType="Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from user_grade
+    where user_id = #{userId}
+  </select>
+
+  <!--查询不同用户编号的集合-->
+  <select id="getUsers" resultType="Integer">
+    select distinct(user_id) from user_grade
+  </select>
+
+  <!--查询某个用户对应的数据量-->
+  <select id="getCount" parameterType="Integer" resultType="java.lang.Long">
+    select id from user_grade
+  </select>
+
+</mapper>

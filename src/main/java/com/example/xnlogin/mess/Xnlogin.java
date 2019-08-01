@@ -1,8 +1,12 @@
 package com.example.xnlogin.mess;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Xnlogin {
+/**
+ * @author Administrator
+ */
+public class Xnlogin implements Serializable {
     private Integer id;
 
     private String emailAddress;

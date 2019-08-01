@@ -22,7 +22,7 @@ public class UserService {
         return xnloginMapper.getByAccount(account);
     }
 
-    void insert(Xnlogin xnlogin){
+    public void insert(Xnlogin xnlogin)throws Exception{
         xnloginMapper.insert(xnlogin);
     }
 }
