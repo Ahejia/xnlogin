@@ -1,35 +1,44 @@
 package com.example.xnlogin.mess;
 
+import com.example.xnlogin.base.BaseEntity;
+
 import java.util.Date;
 
-public class UserGrade {
-    private Long id;
-
-    private Integer userId;
-
+/**
+ * @author Administrator
+ */
+public class UserGrade extends BaseEntity {
+    /**
+     * 用户编号
+     */
+    private Long userId;
+    /**
+     * 数据信息
+     */
     private String datainfo;
-
+    /**
+     * 分数
+     */
     private Integer score;
-
+    /**
+     * 时间
+     */
     private String timer;
-
+    /**
+     * 创建时间
+     */
     private Date createTime;
-
+    /**
+     * 修改时间
+     */
     private Date updateTime;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

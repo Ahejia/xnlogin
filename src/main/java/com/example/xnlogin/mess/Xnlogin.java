@@ -1,35 +1,38 @@
 package com.example.xnlogin.mess;
 
+import com.example.xnlogin.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Administrator
  */
-public class Xnlogin implements Serializable {
-    private Integer id;
-
+public class Xnlogin extends BaseEntity {
+    /**
+     * 邮箱
+     */
     private String emailAddress;
-
-    private Integer identity;
-
+    /**
+     * 用户名
+     */
     private String userName;
-
+    /**
+     * 密码
+     */
     private String password;
-
+    /**
+     * 单位
+     */
     private String unit;
-
+    /**
+     * 创建时间
+     */
     private Date createTime;
-
+    /**
+     * 修改时间
+     */
     private Date updateTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -37,14 +40,6 @@ public class Xnlogin implements Serializable {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress == null ? null : emailAddress.trim();
-    }
-
-    public Integer getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(Integer identity) {
-        this.identity = identity;
     }
 
     public String getUserName() {
@@ -90,9 +85,7 @@ public class Xnlogin implements Serializable {
     @Override
     public String toString() {
         return "Xnlogin{" +
-                "id=" + id +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", identity=" + identity +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", unit='" + unit + '\'' +

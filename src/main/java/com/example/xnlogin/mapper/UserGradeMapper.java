@@ -21,6 +21,6 @@ public interface UserGradeMapper extends IBaseDao<UserGrade> {
      * 查询不同的用户的编号
      * 定时任务
      */
-    List<Integer> getUsers();
+    List<Long> getUsers();
 
 }

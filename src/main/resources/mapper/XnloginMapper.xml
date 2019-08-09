@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.example.xnlogin.mess.Xnlogin" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
-    <result column="identity" property="identity" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="VARCHAR" />
@@ -12,7 +11,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, email_address, `identity`, user_name, password, unit, create_time, update_time
+    id, email_address, user_name, password, unit, create_time, update_time
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -34,9 +33,6 @@
       <if test="emailAddress != null" >
         email_address,
       </if>
-      <if test="identity != null" >
-        `identity`,
-      </if>
       <if test="userName != null" >
         user_name,
       </if>
@@ -54,9 +50,6 @@
       <if test="emailAddress != null" >
         #{emailAddress,jdbcType=VARCHAR},
       </if>
-      <if test="identity != null" >
-        #{identity,jdbcType=INTEGER},
-      </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -73,9 +66,6 @@
     <set >
       <if test="emailAddress != null" >
         email_address = #{emailAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="identity != null" >
-        `identity` = #{identity,jdbcType=INTEGER},
       </if>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},

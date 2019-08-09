@@ -3,7 +3,7 @@
 <mapper namespace="com.example.xnlogin.mapper.UserGradeMapper" >
   <resultMap id="BaseResultMap" type="com.example.xnlogin.mess.UserGrade" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="datainfo" property="datainfo" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="INTEGER" />
     <result column="timer" property="timer" jdbcType="VARCHAR" />
@@ -45,7 +45,7 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
 
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="datainfo != null" >
         #{datainfo,jdbcType=VARCHAR},
@@ -62,7 +62,7 @@
     update user_grade
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="datainfo != null" >
         datainfo = #{datainfo,jdbcType=VARCHAR},
@@ -91,7 +91,7 @@
   </select>
 
   <!--查询不同用户编号的集合-->
-  <select id="getUsers" resultType="Integer">
+  <select id="getUsers" resultType="BIGINT">
     select distinct(user_id) from user_grade
   </select>
 
