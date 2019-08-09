@@ -84,20 +84,19 @@
   </update>
 
   <!--用户编号查询数据-->
-  <select id="getByUserId" parameterType="Integer" resultMap="BaseResultMap">
+  <select id="getByUserIdAndTimer"  resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from user_grade
-    where user_id = #{userId}
+    <where>
+    <if test="userId != '' and userId > 0">and user_id = #{userId}</if>
+    <if test="timer != null and timer != ''">and timer like concat ('%',#{timer},'%')</if>
+    </where>
   </select>
 
-  <!--查询不同用户编号的集合-->
-  <select id="getUsers" resultType="BIGINT">
-    select distinct(user_id) from user_grade
+  <!--获取超过30天的数据-->
+  <select id="getSurplus" resultType="Long">
+    select id from user_grade where create_time &lt; DATE_SUB(CURDATE(), INTERVAL 30 DAY)
   </select>
 
-  <!--查询某个用户对应的数据量-->
-  <select id="getCount" parameterType="Integer" resultType="java.lang.Long">
-    select id from user_grade
-  </select>
 
 </mapper>
