@@ -28,11 +28,6 @@ public class UserGrade extends BaseEntity {
      * 创建时间
      */
     private Date createTime;
-    /**
-     * 修改时间
-     */
-    private Date updateTime;
-
 
     public Long getUserId() {
         return userId;
@@ -72,13 +67,5 @@ public class UserGrade extends BaseEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }
