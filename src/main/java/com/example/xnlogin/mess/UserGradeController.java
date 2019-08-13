@@ -1,5 +1,6 @@
 package com.example.xnlogin.mess;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.xnlogin.base.BaseController;
 import com.example.xnlogin.base.CommonResult;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,12 @@ import java.util.List;
 public class UserGradeController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(UserGradeController.class);
-
+    /**
+     * @describe 查询
+     * @param userId 用户编号
+     * @param timer 时间
+     * @return
+     */
     @Autowired
     private UserGradeService userGradeService;
     @PostMapping("/grade/getByCondition")
@@ -31,17 +37,24 @@ public class UserGradeController extends BaseController {
         List<UserGrade> userGrades = userGradeService.getByUserIdAndTimer(null, timer);
         return CommonResult.success().addResult("userGrades",userGrades);
     }
-
+    /**
+     * @describe 添加信息
+     * @param userId 学生编号
+     * @param operateInfo 成绩详情
+     * @param totalScore 总分
+     * @param operateDate 时间
+     * @return com.example.xnlogin.base.CommonResult
+     */
     @PostMapping("grade/add")
     public CommonResult add(@RequestParam(value = "userId",required = false)String userId,
-                            @RequestParam(value = "dataInfo",required = false)String dataInfo,
-                            @RequestParam(value = "score",required = false)String score,
-                            @RequestParam(value = "timer",required = false)String timer)throws Exception{
+                            @RequestParam(value = "operateInfo",required = false)String operateInfo,
+                            @RequestParam(value = "totalScore",required = false)String totalScore,
+                            @RequestParam(value = "operateDate",required = false)String operateDate)throws Exception{
         if(StringUtils.isEmpty(userId)){
             return CommonResult.fail().setMsg("学生编号不能为空");
         }
         logger.info("---保存学生成绩信息---");
-        userGradeService.save(userId,dataInfo,score,timer);
+        userGradeService.save(userId,totalScore,operateInfo,operateDate);
         return CommonResult.success().setMsg("保存成功");
     }
 }

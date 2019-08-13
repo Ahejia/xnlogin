@@ -94,5 +94,16 @@
     select id from user_grade where create_time &lt; DATE_SUB(CURDATE(), INTERVAL 30 DAY)
   </select>
 
+  <!--用户编号查询不同的时间-->
+  <select id="getTimerByUserId" parameterType="java.lang.Long" resultType="String">
+    select distinct(timer) from user_grade where user_id = #{userId}
+  </select>
+
+  <!--查询最后一条数据-->
+  <select id="getLastMessageId" resultType="java.lang.Long">
+    select max(id)
+    from user_grade
+    where user_id = #{userId} and timer = #{timer}
+  </select>
 
 </mapper>
