@@ -27,15 +27,17 @@ public class UserGradeController extends BaseController {
      */
     @Autowired
     private UserGradeService userGradeService;
+    @Autowired
+    private UserService userService;
     @PostMapping("/grade/getByCondition")
     public CommonResult getByCondition(@RequestParam(value = "userId",required = false)String userId,
                                        @RequestParam(value = "timer",required = false)String timer)throws Exception{
-        if(userId != null){
-            List<UserGrade> userGrades = userGradeService.getByUserIdAndTimer(Long.valueOf(userId), timer);
-            return CommonResult.success().addResult("userGrades",userGrades);
+        if(userId == null){
+            return CommonResult.fail().setMsg("y用户编号不能为空");
         }
-        List<UserGrade> userGrades = userGradeService.getByUserIdAndTimer(null, timer);
-        return CommonResult.success().addResult("userGrades",userGrades);
+        String userName = userService.getUserNameById(Long.valueOf(userId));
+        List<UserGrade> userGrades = userGradeService.getByUserIdAndTimer(Long.valueOf(userId), timer);
+        return CommonResult.success().addResult("userGrades",userGrades).addResult("userName",userName);
     }
     /**
      * @describe 添加信息

@@ -12,9 +12,18 @@
   <sql id="Base_Column_List" >
     id, user_id, datainfo, score, timer, create_time
   </sql>
+    <sql id="Base_Column_List1" >
+    id, user_id, score, timer,create_time
+  </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    from user_grade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getUserGradeById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List1" />
     from user_grade
     where id = #{id,jdbcType=BIGINT}
   </select>

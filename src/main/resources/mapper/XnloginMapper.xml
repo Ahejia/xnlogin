@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.xnlogin.mapper.XnloginMapper" >
   <resultMap id="BaseResultMap" type="com.example.xnlogin.mess.Xnlogin" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -13,23 +13,21 @@
   <sql id="Base_Column_List" >
     id, email_address, user_name, password, unit, create_time, update_time
   </sql>
-  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from xnlogin
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteById" parameterType="java.lang.Integer" >
+  <delete id="deleteById" parameterType="java.lang.Long" >
     delete from xnlogin
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
 
   <insert id="insert" parameterType="com.example.xnlogin.mess.Xnlogin" >
     insert into xnlogin
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
+
       <if test="emailAddress != null" >
         email_address,
       </if>
@@ -44,9 +42,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
+
       <if test="emailAddress != null" >
         #{emailAddress,jdbcType=VARCHAR},
       </if>
@@ -77,7 +73,7 @@
         unit = #{unit,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <!--用户名查询-->
   <select id="getByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">

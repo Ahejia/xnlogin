@@ -21,4 +21,9 @@ public class UserService {
     public void insert(Xnlogin xnlogin)throws Exception{
         xnloginMapper.insert(xnlogin);
     }
+
+    public String getUserNameById(Long id)throws Exception{
+        Xnlogin xn = xnloginMapper.getById(id);
+        return xn.getUserName();
+    }
 }

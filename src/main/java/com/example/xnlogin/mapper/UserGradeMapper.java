@@ -15,6 +15,11 @@ public interface UserGradeMapper extends IBaseDao<UserGrade> {
     List<UserGrade> getByUserIdAndTimer(@Param("userId") Long userId, @Param("timer") String timer);
 
     /**
+     * id查询，不查询dataIdfo的数据
+     */
+    UserGrade getUserGradeById(Long id);
+
+    /**
      * 用户编号查询不同的日期
      */
     List<String> getTimerByUserId(Long userId);

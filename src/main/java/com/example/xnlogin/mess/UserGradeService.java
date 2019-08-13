@@ -28,28 +28,24 @@ public class UserGradeService {
      */
     public List<UserGrade> getByUserIdAndTimer(Long userId,String timer) throws Exception{
         List<UserGrade> userGrades = new ArrayList<>();
-        if(userId != null){
-            if(StringUtils.isEmpty(timer)){
-                logger.info("---查询不同的时间---");
-                List<String> timers = userGradeMapper.getTimerByUserId(userId);
-                if(timers != null && timers.size() > 0){
-                    for(String string : timers){
-                        Long id = userGradeMapper.getLastMessageId(userId, string);
-                        UserGrade userGrade = userGradeMapper.getById(id);
-                        userGrades.add(userGrade);
-                    }
+        if(StringUtils.isEmpty(timer)){
+            logger.info("---查询不同的时间---");
+            List<String> timers = userGradeMapper.getTimerByUserId(userId);
+            if(timers != null && timers.size() > 0){
+                for(String string : timers){
+                    Long id = userGradeMapper.getLastMessageId(userId, string);
+                    UserGrade userGrade = userGradeMapper.getUserGradeById(id);
+                    userGrades.add(userGrade);
                 }
             }
-            logger.info("---查询学生编号为"+userId+"在"+timer+"的成绩信息---");
-            Long id = userGradeMapper.getLastMessageId(userId, timer);
-            UserGrade userGrade = userGradeMapper.getById(id);
-            userGrades.add(userGrade);
-            return userGrades;
-        }else{
-            logger.info("---查询日期为"+timer+"的成绩信息---");
-            userGrades = userGradeMapper.getByUserIdAndTimer(null,timer);
             return userGrades;
         }
+        logger.info("---查询学生编号为"+userId+"在"+timer+"的成绩信息---");
+        Long id = userGradeMapper.getLastMessageId(userId, timer);
+        UserGrade userGrade = userGradeMapper.getById(id);
+        userGrades.add(userGrade);
+        return userGrades;
+
 
     }
 
