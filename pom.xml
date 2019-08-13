@@ -84,7 +84,7 @@
         </dependency>
 
     </dependencies>
-
+    <!--可使用maven指令的方式启动springboot项目-->
     <build>
         <plugins>
             <plugin>
