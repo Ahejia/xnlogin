@@ -18,6 +18,10 @@ public class Xnlogin extends BaseEntity {
      */
     private String userName;
     /**
+     * 身份
+     */
+    private Integer identity;
+    /**
      * 密码
      */
     private String password;
@@ -33,6 +37,14 @@ public class Xnlogin extends BaseEntity {
      * 修改时间
      */
     private Date updateTime;
+
+    public Integer getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(Integer identity) {
+        this.identity = identity;
+    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -85,8 +97,9 @@ public class Xnlogin extends BaseEntity {
     @Override
     public String toString() {
         return "Xnlogin{" +
-                ", emailAddress='" + emailAddress + '\'' +
+                "emailAddress='" + emailAddress + '\'' +
                 ", userName='" + userName + '\'' +
+                ", identity=" + identity +
                 ", password='" + password + '\'' +
                 ", unit='" + unit + '\'' +
                 ", createTime=" + createTime +

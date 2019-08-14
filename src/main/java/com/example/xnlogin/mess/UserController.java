@@ -20,6 +20,7 @@ public class UserController extends BaseController {
     public CommonResult register(@RequestParam(value = "userName",required = false) String userName,
                                  @RequestParam(value = "emailAddress",required = false)String emailAddress,
                                  @RequestParam(value = "password",required = false)String password,
+                                 @RequestParam(value = "identity",required = false)Integer identity,
                                  @RequestParam(value = "unit",required = false)String unit)throws Exception{
         if(null == password){
             return CommonResult.fail().setMsg(CodeEnum.PASSWORD_IS_EMPTY.getDesc()).code(CodeEnum.PASSWORD_IS_EMPTY.getCode());
@@ -40,6 +41,7 @@ public class UserController extends BaseController {
         Xnlogin xnlogin = new Xnlogin();
         xnlogin.setEmailAddress(emailAddress);
         xnlogin.setUnit(unit);
+        xnlogin.setIdentity(identity);
         xnlogin.setPassword(password);
         xnlogin.setUserName(userName);
         userService.insert(xnlogin);
