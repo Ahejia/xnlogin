@@ -12,7 +12,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, email_address, user_name,`identity` password, unit, create_time, update_time
+    id, email_address, user_name,`identity`, password, unit, create_time, update_time
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
