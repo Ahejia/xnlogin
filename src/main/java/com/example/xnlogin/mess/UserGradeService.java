@@ -43,7 +43,9 @@ public class UserGradeService {
         logger.info("---查询学生编号为"+userId+"在"+timer+"的成绩信息---");
         Long id = userGradeMapper.getLastMessageId(userId, timer);
         UserGrade userGrade = userGradeMapper.getById(id);
-        userGrades.add(userGrade);
+        if(userGrade != null){
+            userGrades.add(userGrade);
+        }
         return userGrades;
 
 
