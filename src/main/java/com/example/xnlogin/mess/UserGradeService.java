@@ -22,7 +22,7 @@ public class UserGradeService {
 
     /**
      * @describe   用户编号查询数据信息
-     * @param userId 用户编号
+     * @param userId 学号
      * @param timer 时间
      * @return java.util.List<com.example.xnlogin.mess.UserGrade>
      */
@@ -49,10 +49,11 @@ public class UserGradeService {
 
     }
 
-    public void save(String userId,String score, String dataInfo,String timer)throws Exception{
+    public void save(String userId,String score, String dataInfo,String operateType,String timer)throws Exception{
         UserGrade userGrade = new UserGrade();
         userGrade.setUserId(Long.valueOf(userId));
         userGrade.setDatainfo(dataInfo);
+        userGrade.setOperateType(operateType);
         userGrade.setScore(Integer.parseInt(score));
         userGrade.setTimer(timer);
         userGradeMapper.insert(userGrade);

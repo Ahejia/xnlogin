@@ -16,6 +16,8 @@ public class UserGrade extends BaseEntity {
      * 数据信息
      */
     private String datainfo;
+    /**实验的类型*/
+    private String operateType;
     /**
      * 分数
      */
@@ -28,6 +30,14 @@ public class UserGrade extends BaseEntity {
      * 创建时间
      */
     private Date createTime;
+
+    public String getOperateType() {
+        return operateType;
+    }
+
+    public void setOperateType(String operateType) {
+        this.operateType = operateType;
+    }
 
     public Long getUserId() {
         return userId;

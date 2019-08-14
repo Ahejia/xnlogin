@@ -23,11 +23,15 @@ public interface UserGradeMapper extends IBaseDao<UserGrade> {
      * 用户编号查询不同的日期
      */
     List<String> getTimerByUserId(Long userId);
+    /**学号查询不同的日期*/
+    List<String> getTimerByUnit(String unit);
 
     /**
-     * 用户编号与时间查询最后一条数据
+     * 学号与时间查询最后一条数据
      */
     Long getLastMessageId(@Param("userId") Long userId, @Param("timer") String timer);
+
+
 
     /**
      * 查询超过30天的数据

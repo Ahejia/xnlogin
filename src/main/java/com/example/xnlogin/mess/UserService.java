@@ -1,6 +1,7 @@
 package com.example.xnlogin.mess;
 
 import com.example.xnlogin.mapper.XnloginMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,8 @@ public class UserService {
         xnloginMapper.insert(xnlogin);
     }
 
-    public String getUserNameById(Long id)throws Exception{
-        Xnlogin xn = xnloginMapper.getById(id);
-        return xn.getUserName();
+    public Xnlogin getUserNameByUnit(String unit){
+        Xnlogin xnlogin = xnloginMapper.getUserNameByUnit(unit);
+        return xnlogin;
     }
 }

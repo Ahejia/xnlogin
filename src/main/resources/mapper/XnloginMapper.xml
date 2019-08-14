@@ -98,4 +98,9 @@
     from xnlogin
     where email_address = #{emailAddress}
   </select>
+
+    <select id="getUserNameByUnit" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from xnlogin
+        where unit = #{unit}
+    </select>
 </mapper>
