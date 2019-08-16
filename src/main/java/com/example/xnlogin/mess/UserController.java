@@ -2,15 +2,14 @@ package com.example.xnlogin.mess;
 
 import com.example.xnlogin.base.BaseController;
 import com.example.xnlogin.base.CommonResult;
-import com.example.xnlogin.base.MessageCodeEnum;
 import com.example.xnlogin.enums.CodeEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {

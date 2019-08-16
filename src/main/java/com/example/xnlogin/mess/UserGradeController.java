@@ -1,6 +1,4 @@
 package com.example.xnlogin.mess;
-
-import com.alibaba.fastjson.JSONObject;
 import com.example.xnlogin.base.BaseController;
 import com.example.xnlogin.base.CommonResult;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +16,7 @@ import java.util.List;
  * @Date 2019/8/9 0009 13:48
  */
 @RestController
+@CrossOrigin
 public class UserGradeController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(UserGradeController.class);
