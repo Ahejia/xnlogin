@@ -12,6 +12,7 @@ public enum CodeEnum {
     REGISTER_FAILED(601, "用户已存在，注册失败"),
     PASSWORD_IS_EMPTY(701,"密码不能为空"),
     PASSWORD_IS_FALSE(702, "密码不正确"),
+    EMAIL_FAILED(801, "验证码失效或验证码不一致，请重新输入"),
     FAILED(520, "失败");
 
 

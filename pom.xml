@@ -25,6 +25,15 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <!--email-->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
         <!-- token -->
         <dependency>
             <groupId>com.auth0</groupId>
