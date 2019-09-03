@@ -31,7 +31,7 @@ public class EmailUtil {
 
     public static void sendAuthCodeEmail(String email, String authCode) throws Exception{
         SimpleEmail mail = new SimpleEmail();
-        mail.setHostName("smtp.qq.com");//发送邮件的服务器
+        mail.setHostName("SMTP.qq.com");//发送邮件的服务器
         mail.setAuthentication("951179195", "oewpabhbgcusbfah");//登录邮箱的密码，是开启SMTP的密码
         mail.setFrom("951179195@qq.com","hejia");  //发送邮件的邮箱和发件人
         mail.setSSLOnConnect(true); //使用安全链接
@@ -48,7 +48,7 @@ public class EmailUtil {
         sendAuthCodeEmail(email, code);
         HttpSession session = request.getSession();
         session.setAttribute("code", code);
-        session.setMaxInactiveInterval(60); //设置session有效期 300秒
+        session.setMaxInactiveInterval(300); //设置session有效期 300秒
 
 
 
