@@ -1,10 +1,11 @@
 package com.example.xnlogin.enums;
 
 /**
+ * @author hj
  * 状态码的枚举
  */
 public enum CodeEnum {
-
+    /**返回的状态以及描述*/
     SUCCESS(999, "成功"),
     LOGIN_SUCCESS(666, "登录成功"),
     REGISTER_SUCCESS(888, "注册成功"),
@@ -15,8 +16,9 @@ public enum CodeEnum {
     EMAIL_FAILED(801, "验证码失效或验证码不一致，请重新输入"),
     FAILED(520, "失败");
 
-
+    /**返回的code*/
     private Integer code;
+    /**描述*/
     private String desc;
 
     public Integer getCode() {

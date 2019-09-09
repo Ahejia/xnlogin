@@ -6,35 +6,38 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+/***
+ * @author Administrator
+ */
 @Mapper
 public interface UserGradeMapper extends IBaseDao<UserGrade> {
 
     /**
-     * 用户编号与时间查询数据
-     */
-    List<UserGrade> getByUserIdAndTimer(@Param("userId") Long userId, @Param("timer") String timer);
-
-    /**
-     * id查询，不查询dataIdfo的数据
+     *  id查询，不查询dataIdfo的数据
+     * @param id 编号
+     * @return com.example.xnlogin.mess.UserGrade
      */
     UserGrade getUserGradeById(Long id);
 
     /**
-     * 用户编号查询不同的日期
+     *  用户编号查询不同的日期
+     * @param userId 学号
+     * @return java.util.List<java.lang.String>
      */
     List<String> getTimerByUserId(Long userId);
-    /**学号查询不同的日期*/
-    List<String> getTimerByUnit(String unit);
 
     /**
-     * 学号与时间查询最后一条数据
+     *
+     *  学号与时间查询最后一条数据
+     * @param userId 学号
+     * @param timer 时间
+     * @return java.lang.Long
      */
     Long getLastMessageId(@Param("userId") Long userId, @Param("timer") String timer);
-
-
-
+    
     /**
      * 查询超过30天的数据
+     * @return java.util.List<java.lang.Long>
      */
     List<Long> getSurplus();
 

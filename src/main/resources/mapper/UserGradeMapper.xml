@@ -95,16 +95,6 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <!--用户编号查询数据-->
-  <select id="getByUserIdAndTimer"  resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from user_grade
-    <where>
-    <if test="userId != '' and userId > 0">and user_id = #{userId}</if>
-    <if test="timer != null and timer != ''">and timer like concat ('%',#{timer},'%')</if>
-    </where>
-  </select>
-
   <!--获取超过30天的数据-->
   <select id="getSurplus" resultType="Long">
     select id from user_grade where create_time &lt; DATE_SUB(CURDATE(), INTERVAL 30 DAY)
@@ -115,10 +105,6 @@
     select distinct(timer) from user_grade where user_id = #{userId}
   </select>
 
-  <!--学号查询不同的时间-->
-  <select id="getTimerByUnit" parameterType="java.lang.String" resultType="String">
-    select distinct(timer) from user_grade where unit = #{unit}
-  </select>
 
   <!--查询最后一条数据-->
   <select id="getLastMessageId" resultType="java.lang.Long">

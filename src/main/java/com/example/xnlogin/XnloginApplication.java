@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+/**
+ * @author Administrator
+ * @return
+ */
 @ServletComponentScan
 @SpringBootApplication
 @MapperScan("com.example.xnlogin.mapper")

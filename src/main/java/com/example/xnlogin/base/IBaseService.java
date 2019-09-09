@@ -19,24 +19,24 @@ public interface IBaseService<T> {
      */
     void save(T entity) throws Exception;
 
-    // 修改
+    /**修改*/
     void update(T entity) throws Exception;
 
-    // 删除
+    /**删除*/
     void deleteById(Serializable id) throws Exception;
 
-    // 查询（ID）
+    /**id查询*/
     T getById(Serializable id) throws Exception;
 
-    // 查询（where）
+    /**查询（where）*/
     List<T> getByWhere(ObjectQuery objectQuery) throws Exception;
 
-    // 查询（All）
+    /**查询（all）*/
     List<T> getAll() throws Exception;
 
-    // 查询(分页 查询)
+    /**查询(分页 查询)*/
     PageResult<T> findPage(ObjectQuery queryObject) throws Exception;
 
-    // 查询总条数
-    public Integer findCount(ObjectQuery objectQuery) throws Exception;
+    /**查询总条数*/
+    Integer findCount(ObjectQuery objectQuery) throws Exception;
 }

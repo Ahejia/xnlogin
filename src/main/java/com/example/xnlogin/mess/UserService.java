@@ -1,10 +1,12 @@
 package com.example.xnlogin.mess;
 
 import com.example.xnlogin.mapper.XnloginMapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * @author Administrator
+ * @return
+ */
 @Service
 public class UserService {
 

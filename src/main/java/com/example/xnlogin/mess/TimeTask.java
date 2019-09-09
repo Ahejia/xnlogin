@@ -25,14 +25,13 @@ public class TimeTask implements ApplicationRunner {
         startDeleteImgService();//
     }
 
-    //定时器
+    /**定时器*/
     public void startDeleteImgService() throws Exception{
         System.out.println("启动删除＝＝＝＝");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);
-        Date time = calendar.getTime();
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(
                 1, new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(false).build());
         // 第一个参数是任务，第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间,第四个参数是时间单位
