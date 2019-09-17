@@ -34,7 +34,6 @@ public interface UserGradeMapper extends IBaseDao<UserGrade> {
      * @return java.lang.Long
      */
     Long getLastMessageId(@Param("userId") Long userId, @Param("timer") String timer);
-    
     /**
      * 查询超过30天的数据
      * @return java.util.List<java.lang.Long>
