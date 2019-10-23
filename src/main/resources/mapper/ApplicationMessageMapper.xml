@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.ApplicationMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.ApplicationMessage" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="DECIMAL" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="MAIN_ENTRY" property="mainEntry" jdbcType="VARCHAR" />
+    <result column="APPLICATION_ICON" property="applicationIcon" jdbcType="VARCHAR" />
+    <result column="UNIFY_ACCESS" property="unifyAccess" jdbcType="DECIMAL" />
+    <result column="DEPLAY_TIME" property="deplayTime" jdbcType="TIMESTAMP" />
+    <result column="ALLOW_CONCURRENCY" property="allowConcurrency" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STOP_TIME" property="stopTime" jdbcType="TIMESTAMP" />
+    <result column="SORT" property="sort" jdbcType="FLOAT" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="AUTHENTICATION" property="authentication" jdbcType="VARCHAR" />
+    <result column="WEB_START_URL" property="webStartUrl" jdbcType="VARCHAR" />
+    <result column="COMMAND_LINE" property="commandLine" jdbcType="VARCHAR" />
+    <result column="INIT_SCRIPT" property="initScript" jdbcType="VARCHAR" />
+    <result column=" AUTO_CONFIG_FILE" property="autoConfigFile" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME, VERSION, MAIN_ENTRY, APPLICATION_ICON, 
+    UNIFY_ACCESS, DEPLAY_TIME, ALLOW_CONCURRENCY, STATUS, REMARK, CREATE_TIME, UPDATE_TIME, 
+    STOP_TIME, SORT, TYPE, AUTHENTICATION, WEB_START_URL, COMMAND_LINE, INIT_SCRIPT, 
+    " AUTO_CONFIG_FILE"
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PLATFORM_APPLICATION_MESSAGE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from PLATFORM_APPLICATION_MESSAGE
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from PLATFORM_APPLICATION_MESSAGE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.ApplicationMessage" >
+    insert into PLATFORM_APPLICATION_MESSAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="simpleName != null" >
+        SIMPLE_NAME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="mainEntry != null" >
+        MAIN_ENTRY,
+      </if>
+      <if test="applicationIcon != null" >
+        APPLICATION_ICON,
+      </if>
+      <if test="unifyAccess != null" >
+        UNIFY_ACCESS,
+      </if>
+      <if test="deplayTime != null" >
+        DEPLAY_TIME,
+      </if>
+      <if test="allowConcurrency != null" >
+        ALLOW_CONCURRENCY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="stopTime != null" >
+        STOP_TIME,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="authentication != null" >
+        AUTHENTICATION,
+      </if>
+      <if test="webStartUrl != null" >
+        WEB_START_URL,
+      </if>
+      <if test="commandLine != null" >
+        COMMAND_LINE,
+      </if>
+      <if test="initScript != null" >
+        INIT_SCRIPT,
+      </if>
+      <if test="autoConfigFile != null" >
+        " AUTO_CONFIG_FILE",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleName != null" >
+        #{simpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="mainEntry != null" >
+        #{mainEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationIcon != null" >
+        #{applicationIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="unifyAccess != null" >
+        #{unifyAccess,jdbcType=DECIMAL},
+      </if>
+      <if test="deplayTime != null" >
+        #{deplayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allowConcurrency != null" >
+        #{allowConcurrency,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null" >
+        #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=FLOAT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="authentication != null" >
+        #{authentication,jdbcType=VARCHAR},
+      </if>
+      <if test="webStartUrl != null" >
+        #{webStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commandLine != null" >
+        #{commandLine,jdbcType=VARCHAR},
+      </if>
+      <if test="initScript != null" >
+        #{initScript,jdbcType=VARCHAR},
+      </if>
+      <if test="autoConfigFile != null" >
+        #{autoConfigFile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.example.manager.pojo.ApplicationMessage" >
+    update PLATFORM_APPLICATION_MESSAGE
+    <set >
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleName != null" >
+        SIMPLE_NAME = #{simpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="mainEntry != null" >
+        MAIN_ENTRY = #{mainEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationIcon != null" >
+        APPLICATION_ICON = #{applicationIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="unifyAccess != null" >
+        UNIFY_ACCESS = #{unifyAccess,jdbcType=DECIMAL},
+      </if>
+      <if test="deplayTime != null" >
+        DEPLAY_TIME = #{deplayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allowConcurrency != null" >
+        ALLOW_CONCURRENCY = #{allowConcurrency,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null" >
+        STOP_TIME = #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=FLOAT},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="authentication != null" >
+        AUTHENTICATION = #{authentication,jdbcType=VARCHAR},
+      </if>
+      <if test="webStartUrl != null" >
+        WEB_START_URL = #{webStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commandLine != null" >
+        COMMAND_LINE = #{commandLine,jdbcType=VARCHAR},
+      </if>
+      <if test="initScript != null" >
+        INIT_SCRIPT = #{initScript,jdbcType=VARCHAR},
+      </if>
+      <if test="autoConfigFile != null" >
+        " AUTO_CONFIG_FILE" = #{autoConfigFile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+
+  <!--新增sql-->
+  <!--禁用应用信息-->
+  <update id="hiddenById" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_MESSAGE set status = 1
+    where id = #{id}
+  </update>
+
+</mapper>
