@@ -10,6 +10,8 @@ import com.example.manager.service.IApplicationResourceService;
 import com.example.manager.service.IApplicationRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,8 @@ import java.util.List;
 @Api("ApplicationRoleController")
 public class ApplicationRoleController extends BaseController {
 
+    private Logger log = LoggerFactory.getLogger(ApplicationRoleController.class);
+
     @Autowired
     private IApplicationRoleService roleService;
 
@@ -36,6 +40,7 @@ public class ApplicationRoleController extends BaseController {
     @GetMapping(value = "role/get")
     @ApiOperation(value = "获取",notes = "获取应用角色信息")
     public CommonResult get()throws Exception{
+        log.info("---获取所有的角色信息---");
         List<ApplicationRole> list = roleService.getAll();
         return CommonResult.success().addResult("list",list);
     }
@@ -48,6 +53,7 @@ public class ApplicationRoleController extends BaseController {
     @PostMapping(value = "/role/save")
     @ApiOperation(value = "保存",notes = "保存角色信息")
     public CommonResult save(@RequestBody ApplicationRole applicationRole)throws Exception{
+        log.info("---保存应用角色信息---");
         roleService.save(applicationRole);
         return CommonResult.success().setMsg("保存成功");
     }
@@ -61,6 +67,7 @@ public class ApplicationRoleController extends BaseController {
     @ApiOperation(value = "修改",notes = "修改角色信息")
     public CommonResult update(@RequestBody ApplicationRole applicationRole)throws Exception{
         if(applicationRole.getId() != null){
+            log.info("---修改编号为"+applicationRole.getId()+"的角色信息---");
             roleService.update(applicationRole);
             return CommonResult.success().setMsg("修改成功");
         }
@@ -77,6 +84,7 @@ public class ApplicationRoleController extends BaseController {
     @ApiOperation(value = "禁用",notes = "禁用应用角色信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            log.info("---禁用编号为"+id+"的角色信息---");
             roleService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
@@ -92,9 +100,11 @@ public class ApplicationRoleController extends BaseController {
     @PostMapping("/role/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            log.info("---删除关联表---");
             //删除关联表
             roleService.deleteByRoleId(id);
             //删除角色
+            log.info("---删除编号为"+id+"的角色信息---");
             roleService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
