@@ -4,8 +4,11 @@ import com.example.manager.base.BaseServiceImpl;
 import com.example.manager.dao.ApplicationMessageMapper;
 import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.service.IApplicationMessageService;
+import com.example.manager.vo.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: hj
@@ -21,5 +24,21 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
     @Override
     public void hiddenById(Long id) throws Exception {
         messageMapper.hiddenById(id);
+    }
+
+    @Override
+    public List<ApplicationMessage> getPage(Integer pageSize, Integer pageNun) throws Exception {
+        if(pageSize != null && pageSize > 0){
+            pageSize = pageSize -1;
+        }else{
+            pageSize = 1;
+        }
+        if(pageNun == null){
+            pageNun = 10;
+        }
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageMinNum((pageSize-1) * pageNun);
+        pageQuery.setPageMaxNum(pageSize * pageNun);
+        return messageMapper.getPage(pageQuery);
     }
 }

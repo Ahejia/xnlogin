@@ -29,7 +29,6 @@ public class ApplicationRoleController extends BaseController {
     private IApplicationRoleService roleService;
 
     /**
-     * @Author hj
      * @Description  获取所有的应用角色信息
      * @Date 16:17 2019/10/23
      * @return com.example.manager.base.CommonResult
@@ -42,7 +41,6 @@ public class ApplicationRoleController extends BaseController {
     }
 
     /**
-     * @Author hj
      * @Description  保存应用角色信息
      * @Date 16:17 2019/10/23
      * @return com.example.manager.base.CommonResult
@@ -55,7 +53,6 @@ public class ApplicationRoleController extends BaseController {
     }
 
     /**
-     * @Author hj
      * @Description  修改角色信息
      * @Date 16:17 2019/10/23
      * @return com.example.manager.base.CommonResult
@@ -71,7 +68,6 @@ public class ApplicationRoleController extends BaseController {
     }
 
     /**
-     * @Author hj
      * @Description 禁用角色
      * @Date 17:12 2019/10/23
      * @Param [id] 角色id
@@ -88,7 +84,6 @@ public class ApplicationRoleController extends BaseController {
     }
 
     /**
-     * @Author hj
      * @Description 删除角色
      * @Date 17:13 2019/10/23
      * @Param [id] 角色id

@@ -2,7 +2,10 @@ package com.example.manager.dao;
 
 import com.example.manager.base.IBaseDao;
 import com.example.manager.pojo.ApplicationMessage;
+import com.example.manager.vo.PageQuery;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: hj
@@ -12,8 +15,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
     /**
-     * @Author hj
      * @Description 禁用信息
-    **/
-    void hiddenById(Long id)throws Exception;
+     **/
+    void hiddenById(Long id) throws Exception;
+
+    /**
+     * 分页查询
+     */
+    List<ApplicationMessage> getPage(PageQuery pageQuery) throws Exception;
 }
