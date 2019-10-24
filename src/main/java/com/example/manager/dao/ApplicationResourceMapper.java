@@ -2,7 +2,10 @@ package com.example.manager.dao;
 
 import com.example.manager.base.IBaseDao;
 import com.example.manager.pojo.ApplicationResource;
+import com.example.manager.vo.PageQuery;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: hj
@@ -17,4 +20,9 @@ public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource>
      * @Param [id] 编号
     **/
     void hiddenById(Long id)throws Exception;
+
+    /**
+     * 分页查询
+     */
+    List<ApplicationResource> getPage(PageQuery pageQuery) throws Exception;
 }

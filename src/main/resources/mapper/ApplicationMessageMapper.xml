@@ -23,13 +23,13 @@
     <result column="WEB_START_URL" property="webStartUrl" jdbcType="VARCHAR" />
     <result column="COMMAND_LINE" property="commandLine" jdbcType="VARCHAR" />
     <result column="INIT_SCRIPT" property="initScript" jdbcType="VARCHAR" />
-    <result column=" AUTO_CONFIG_FILE" property="autoConfigFile" jdbcType="VARCHAR" />
+    <result column="AUTO_CONFIG_FILE" property="autoConfigFile" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME, VERSION, MAIN_ENTRY, APPLICATION_ICON, 
     UNIFY_ACCESS, DEPLAY_TIME, ALLOW_CONCURRENCY, STATUS, REMARK, CREATE_TIME, UPDATE_TIME, 
     STOP_TIME, SORT, TYPE, AUTHENTICATION, WEB_START_URL, COMMAND_LINE, INIT_SCRIPT, 
-    " AUTO_CONFIG_FILE"
+    "AUTO_CONFIG_FILE"
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -115,7 +115,7 @@
         INIT_SCRIPT,
       </if>
       <if test="autoConfigFile != null" >
-        " AUTO_CONFIG_FILE",
+        "AUTO_CONFIG_FILE",
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -251,7 +251,7 @@
         INIT_SCRIPT = #{initScript,jdbcType=VARCHAR},
       </if>
       <if test="autoConfigFile != null" >
-        " AUTO_CONFIG_FILE" = #{autoConfigFile,jdbcType=VARCHAR},
+        "AUTO_CONFIG_FILE" = #{autoConfigFile,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -270,9 +270,9 @@
     FROM (SELECT tt.*, ROWNUM AS rowno
     FROM (  SELECT t.<include refid="Base_Column_List"/>
     FROM PLATFORM_APPLICATION_MESSAGE t
-    ORDER BY "SORT" DESC) tt
+    ORDER BY SORT DESC) tt
     WHERE ROWNUM &lt;= #{pageMaxNum}) table_alias
-    WHERE table_alias.rowno &gt; #{pageMinNum};
+    WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
 </mapper>

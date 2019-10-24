@@ -153,4 +153,16 @@
   <update id="hiddenById" parameterType="java.lang.Long">
     update PLATFORM_APPLICATION_RESOURCE set STATUS = 1 where id = #{id}
   </update>
+
+  <!--分页查询-->
+  <select id="getPage" resultMap="BaseResultMap" parameterType="com.example.manager.vo.PageQuery">
+    SELECT *
+    FROM (SELECT tt.*, ROWNUM AS rowno
+    FROM (  SELECT t.<include refid="Base_Column_List"/>
+    FROM PLATFORM_APPLICATION_RESOURCE t
+    ORDER BY SORT DESC) tt
+    WHERE ROWNUM &lt;= #{pageMaxNum}) table_alias
+    WHERE table_alias.rowno &gt; #{pageMinNum}
+  </select>
+
 </mapper>

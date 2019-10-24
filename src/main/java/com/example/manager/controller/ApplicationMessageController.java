@@ -108,8 +108,8 @@ public class ApplicationMessageController extends BaseController {
      * @return com.example.manager.base.CommonResult
     **/
     @ApiOperation(value = "分页",notes = "分页查询应用信息")
-    @ApiImplicitParams({@ApiImplicitParam(name = "pageSize", value = "当前页", defaultValue = "1",dataType = "Integer"),
-    @ApiImplicitParam(name = "pageNum", value = "每页展示数量", defaultValue = "10",dataType = "Integer")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "pageSize", value = "当前页",required = false,defaultValue = "1",dataType = "Integer",paramType = "query"),
+    @ApiImplicitParam(name = "pageNum", value = "每页展示数量",required = false,defaultValue = "10",dataType = "Integer",paramType = "query")})
     @GetMapping("/message/get/page")
     public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
                                 @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{

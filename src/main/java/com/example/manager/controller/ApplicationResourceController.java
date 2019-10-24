@@ -8,9 +8,7 @@ import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.service.IApplicationMessageService;
 import com.example.manager.service.IApplicationResourceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -105,9 +103,21 @@ public class ApplicationResourceController extends BaseController {
     }
 
     /**
-     * @Author hj
-     * @Description 分页 @TODO
-    **/
+     * @Description
+     * @Date 12:28 2019/10/24
+     * @param pageNum 每页展示数量
+     * @param pageSize 当前页
+     * @return com.example.manager.base.CommonResult
+     **/
+    @ApiOperation(value = "分页",notes = "分页查询应用信息")
+    @ApiImplicitParams({@ApiImplicitParam(name = "pageSize", value = "当前页",required = false,defaultValue = "1",dataType = "Integer",paramType = "query"),
+            @ApiImplicitParam(name = "pageNum", value = "每页展示数量",required = false,defaultValue = "10",dataType = "Integer",paramType = "query")})
+    @GetMapping("/resource/get/page")
+    public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
+                                @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
+        List<ApplicationResource> resources = resourceService.getPage(pageSize, pageNum);
+        return CommonResult.success().setMsg("查询成功").addResult("list",resources);
+    }
 
 
 

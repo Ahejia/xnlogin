@@ -28,14 +28,6 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
 
     @Override
     public List<ApplicationMessage> getPage(Integer pageSize, Integer pageNun) throws Exception {
-        if(pageSize != null && pageSize > 0){
-            pageSize = pageSize -1;
-        }else{
-            pageSize = 1;
-        }
-        if(pageNun == null){
-            pageNun = 10;
-        }
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageMinNum((pageSize-1) * pageNun);
         pageQuery.setPageMaxNum(pageSize * pageNun);
