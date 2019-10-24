@@ -9,6 +9,8 @@ import com.example.manager.service.IApplicationMessageService;
 import com.example.manager.service.IApplicationResourceService;
 import com.example.manager.service.IApplicationRoleService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.List;
 @RequestMapping(value = "/application")
 @Api("ApplicationMessageController")
 public class ApplicationMessageController extends BaseController {
+
+    private Logger logger = LoggerFactory.getLogger(ApplicationMessageController.class);
 
     @Autowired
     private IApplicationMessageService messageService;
@@ -39,6 +43,7 @@ public class ApplicationMessageController extends BaseController {
     @GetMapping(value = "message/get")
     @ApiOperation(value = "获取",notes = "获取所有应用信息")
     public CommonResult get()throws Exception{
+        logger.info("---获取所有应用信息---");
         List<ApplicationMessage> list = messageService.getAll();
         return CommonResult.success().addResult("list",list);
     }
@@ -52,6 +57,7 @@ public class ApplicationMessageController extends BaseController {
     @PostMapping(value = "/message/save")
     @ApiOperation(value = "保存",notes = "保存应用信息")
     public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
+        logger.info("---保存应用信息---");
         messageService.save(applicationMessage);
         return CommonResult.success().setMsg("保存成功");
     }
@@ -66,6 +72,7 @@ public class ApplicationMessageController extends BaseController {
     @ApiOperation(value = "修改",notes = "修改应用信息")
     public CommonResult update(@RequestBody ApplicationMessage applicationMessage)throws Exception{
         if(applicationMessage.getId() != null){
+            logger.info("---修改应用信息---");
             messageService.update(applicationMessage);
             return CommonResult.success().setMsg("修改成功");
         }
@@ -82,6 +89,7 @@ public class ApplicationMessageController extends BaseController {
     @ApiOperation(value = "禁用",notes = "禁用应用信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            logger.info("---禁用编号为"+id+"的应用---");
             messageService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
@@ -98,13 +106,17 @@ public class ApplicationMessageController extends BaseController {
     @PostMapping("/message/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            logger.info("---把资源表应用id为"+id+"的信息置为0---");
             //对应的资源表中的应用id置为0
             resourceService.updateApplicationId(id);
+            logger.info("---把角色表应用id为"+id+"的信息置为0---");
             //对应的角色表中应用id置为0
             roleService.updateApplicationId(id);
+            logger.info("---删除关联表中应用id为"+id+"的数据信息---");
             //删除关联表中数据
             messageService.deleteByApplicationId(id);
             //删除应用
+            logger.info("---删除应用编号为"+id+"的应用信息---");
             messageService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
@@ -124,6 +136,7 @@ public class ApplicationMessageController extends BaseController {
     @GetMapping("/message/get/page")
     public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
                                 @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
+        logger.info("---分页查询---");
         List<ApplicationMessage> messages = messageService.getPage(pageSize, pageNum);
         return CommonResult.success().setMsg("查询成功").addResult("list",messages);
     }
