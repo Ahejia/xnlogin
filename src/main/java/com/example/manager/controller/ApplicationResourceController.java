@@ -5,14 +5,15 @@ import com.example.manager.base.BaseController;
 import com.example.manager.base.CommonResult;
 import com.example.manager.base.MessageCodeEnum;
 import com.example.manager.pojo.ApplicationMessage;
+import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.service.IApplicationMessageService;
+import com.example.manager.service.IApplicationResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,68 +23,69 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/application")
-@Api("ApplicationMessageController")
-public class ApplicationMessageController extends BaseController {
+@Api("ApplicationResourceController")
+public class ApplicationResourceController extends BaseController {
 
     @Autowired
-    private IApplicationMessageService messageService;
+    private IApplicationResourceService resourceService;
 
     /**
      * @Author hj
-     * @Description  获取所有的应用信息
+     * @Description  获取所有的应用资源信息
      * @Date 16:17 2019/10/23
-     * @return java.util.List<com.example.manager.pojo.ApplicationMessage>
+     * @return com.example.manager.base.CommonResult
     **/
-    @GetMapping(value = "message/get")
-    @ApiOperation(value = "获取",notes = "获取所有应用信息")
+    @GetMapping(value = "resource/get")
+    @ApiOperation(value = "获取",notes = "获取资源应用信息")
     public CommonResult get()throws Exception{
-        List<ApplicationMessage> list = messageService.getAll();
+        List<ApplicationResource> list = resourceService.getAll();
         return CommonResult.success().addResult("list",list);
     }
 
     /**
      * @Author hj
-     * @Description  保存应用信息
+     * @Description  保存应用资源信息
      * @Date 16:17 2019/10/23
-     * @return java.util.List<com.example.manager.pojo.ApplicationMessage>
+     * @return com.example.manager.base.CommonResult
      **/
-    @GetMapping(value = "/message/save")
-    @ApiOperation(value = "保存",notes = "保存应用信息")
-    public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
-        messageService.save(applicationMessage);
+    @GetMapping(value = "/resource/save")
+    @ApiOperation(value = "保存",notes = "保存资源信息")
+    public CommonResult save(@RequestBody ApplicationResource applicationResource)throws Exception{
+        resourceService.save(applicationResource);
         return CommonResult.success().setMsg("保存成功");
     }
 
     /**
      * @Author hj
-     * @Description  修改应用信息
+     * @Description  修改资源信息
      * @Date 16:17 2019/10/23
-     * @return java.util.List<com.example.manager.pojo.ApplicationMessage>
+     * @return com.example.manager.base.CommonResult
      **/
-    @PostMapping(value = "/message/update")
-    @ApiOperation(value = "修改",notes = "修改应用信息")
-    public CommonResult update(@RequestBody ApplicationMessage applicationMessage)throws Exception{
-        if(applicationMessage.getId() != null){
-            messageService.update(applicationMessage);
+    @PostMapping(value = "/resource/update")
+    @ApiOperation(value = "修改",notes = "修改资源信息")
+    public CommonResult update(@RequestBody ApplicationResource applicationResource)throws Exception{
+        if(applicationResource.getId() != null){
+            resourceService.update(applicationResource);
             return CommonResult.success().setMsg("修改成功");
         }
-        return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
+        return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("资源编号不能为空");
     }
 
     /**
      * @Author hj
-     * @Description 禁用应用
+     * @Description 禁用资源
      * @Date 17:12 2019/10/23
      * @Param [id] 应用id
+     * @return com.example.manager.base.CommonResult
     **/
-    @PostMapping("/message/hidden/{id}")
-    @ApiOperation(value = "禁用",notes = "禁用应用信息")
+    @PostMapping("/resource/hidden/{id}")
+    @ApiOperation(value = "禁用",notes = "禁用资源信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
-            messageService.hiddenById(id);
+            resourceService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
-            return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("应用编号不能为空");
+            return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");
     }
 
     /**
@@ -92,11 +94,11 @@ public class ApplicationMessageController extends BaseController {
      * @Date 17:13 2019/10/23
      * @Param [id] 应用id
     **/
-    @ApiOperation(value = "删除",notes = "删除应用信息")
-    @PostMapping("/message/delete/{id}")
+    @ApiOperation(value = "删除",notes = "删除资源信息")
+    @PostMapping("/resource/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
-            messageService.deleteById(id);
+            resourceService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");

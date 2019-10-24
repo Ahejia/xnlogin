@@ -147,4 +147,10 @@
       </if>
     </set>
   </update>
+
+  <!--新增sql-->
+  <!--根据编号禁用资源-->
+  <update id="hiddenById" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_RESOURCE set STATUS = 1 where id = #{id}
+  </update>
 </mapper>

@@ -10,4 +10,10 @@ import com.example.manager.pojo.ApplicationResource;
  * @Modified By：
  */
 public interface IApplicationResourceService extends IBaseService<ApplicationResource> {
+    /**
+     * @Description 禁用资源
+     * @Date 9:19 2019/10/24
+     * @Param [id] 资源编号
+    **/
+    void hiddenById(Long id)throws Exception;
 }

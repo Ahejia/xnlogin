@@ -12,4 +12,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ApplicationRoleMapper extends IBaseDao<ApplicationRole> {
+    /**
+     * @Author hj
+     * @Description 根据角色禁用
+     * @Date 9:28 2019/10/24
+     * @Param [id] 角色编号
+    **/
+    void hiddenById(Long id)throws Exception;
 }

@@ -11,4 +11,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource> {
+    /**
+     * @Description 根据编号禁用资源
+     * @Date 9:21 2019/10/24
+     * @Param [id] 编号
+    **/
+    void hiddenById(Long id)throws Exception;
 }

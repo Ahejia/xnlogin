@@ -84,4 +84,9 @@
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 
+  <!--新增sql-->
+  <update id="hiddenById" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_ROLE set STATUS = 1 where id = #{id}
+  </update>
+
 </mapper>
