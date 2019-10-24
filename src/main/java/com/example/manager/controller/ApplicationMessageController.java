@@ -45,7 +45,7 @@ public class ApplicationMessageController extends BaseController {
      * @Date 16:17 2019/10/23
      * @return com.example.manager.base.CommonResult
      **/
-    @GetMapping(value = "/message/save")
+    @PostMapping(value = "/message/save")
     @ApiOperation(value = "保存",notes = "保存应用信息")
     public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
         messageService.save(applicationMessage);

@@ -46,7 +46,7 @@ public class ApplicationResourceController extends BaseController {
      * @Date 16:17 2019/10/23
      * @return com.example.manager.base.CommonResult
      **/
-    @GetMapping(value = "/resource/save")
+    @PostMapping(value = "/resource/save")
     @ApiOperation(value = "保存",notes = "保存资源信息")
     public CommonResult save(@RequestBody ApplicationResource applicationResource)throws Exception{
         resourceService.save(applicationResource);
