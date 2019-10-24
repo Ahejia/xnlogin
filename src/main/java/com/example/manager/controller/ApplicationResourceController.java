@@ -9,6 +9,8 @@ import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.service.IApplicationMessageService;
 import com.example.manager.service.IApplicationResourceService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,8 @@ import java.util.List;
 @Api("ApplicationResourceController")
 public class ApplicationResourceController extends BaseController {
 
+    private Logger log = LoggerFactory.getLogger(ApplicationResourceController.class);
+
     @Autowired
     private IApplicationResourceService resourceService;
 
@@ -36,6 +40,7 @@ public class ApplicationResourceController extends BaseController {
     @GetMapping(value = "resource/get")
     @ApiOperation(value = "获取",notes = "获取资源应用信息")
     public CommonResult get()throws Exception{
+        log.info("---查询所有的资源应用信息---");
         List<ApplicationResource> list = resourceService.getAll();
         return CommonResult.success().addResult("list",list);
     }
@@ -49,6 +54,7 @@ public class ApplicationResourceController extends BaseController {
     @PostMapping(value = "/resource/save")
     @ApiOperation(value = "保存",notes = "保存资源信息")
     public CommonResult save(@RequestBody ApplicationResource applicationResource)throws Exception{
+        log.info("---保存资源信息---");
         resourceService.save(applicationResource);
         return CommonResult.success().setMsg("保存成功");
     }
@@ -63,6 +69,7 @@ public class ApplicationResourceController extends BaseController {
     @ApiOperation(value = "修改",notes = "修改资源信息")
     public CommonResult update(@RequestBody ApplicationResource applicationResource)throws Exception{
         if(applicationResource.getId() != null){
+            log.info("---修改编号为"+applicationResource.getId()+"的资源信息---");
             resourceService.update(applicationResource);
             return CommonResult.success().setMsg("修改成功");
         }
@@ -80,6 +87,7 @@ public class ApplicationResourceController extends BaseController {
     @ApiOperation(value = "禁用",notes = "禁用资源信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            log.info("---禁用编号为"+id+"的资源信息---");
             resourceService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
@@ -97,10 +105,13 @@ public class ApplicationResourceController extends BaseController {
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
             //上级资源为id的置为0
+            log.info("---1.把对应上级资源为"+id+"置为0---");
             resourceService.updateParentId(id);
             //删除关联表中的数据
+            log.info("---2删除关联表中的数据---");
             resourceService.deleteByResourceId(id);
             //删除资源
+            log.info("---3.删除编号为"+id+"的资源信息---");
             resourceService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
@@ -114,12 +125,13 @@ public class ApplicationResourceController extends BaseController {
      * @param pageSize 当前页
      * @return com.example.manager.base.CommonResult
      **/
-    @ApiOperation(value = "分页",notes = "分页查询应用信息")
+    @ApiOperation(value = "分页",notes = "分页查询资源信息")
     @ApiImplicitParams({@ApiImplicitParam(name = "pageSize", value = "当前页",required = false,defaultValue = "1",dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "pageNum", value = "每页展示数量",required = false,defaultValue = "10",dataType = "Integer",paramType = "query")})
     @GetMapping("/resource/get/page")
     public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
                                 @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
+        log.info("---分页查询资源信息---");
         List<ApplicationResource> resources = resourceService.getPage(pageSize, pageNum);
         return CommonResult.success().setMsg("查询成功").addResult("list",resources);
     }
