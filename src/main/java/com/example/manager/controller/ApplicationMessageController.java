@@ -6,11 +6,11 @@ import com.example.manager.base.CommonResult;
 import com.example.manager.base.MessageCodeEnum;
 import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.service.IApplicationMessageService;
+import com.example.manager.service.IApplicationResourceService;
+import com.example.manager.service.IApplicationRoleService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +25,10 @@ public class ApplicationMessageController extends BaseController {
 
     @Autowired
     private IApplicationMessageService messageService;
+    @Autowired
+    private IApplicationResourceService resourceService;
+    @Autowired
+    private IApplicationRoleService roleService;
 
     /**
      * @Author hj
@@ -94,6 +98,13 @@ public class ApplicationMessageController extends BaseController {
     @PostMapping("/message/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            //对应的资源表中的应用id置为0
+            resourceService.updateApplicationId(id);
+            //对应的角色表中应用id置为0
+            roleService.updateApplicationId(id);
+            //删除关联表中数据
+            messageService.deleteByApplicationId(id);
+            //删除应用
             messageService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }

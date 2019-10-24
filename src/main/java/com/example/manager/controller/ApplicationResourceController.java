@@ -96,6 +96,11 @@ public class ApplicationResourceController extends BaseController {
     @PostMapping("/resource/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            //上级资源为id的置为0
+            resourceService.updateParentId(id);
+            //删除关联表中的数据
+            resourceService.deleteByResourceId(id);
+            //删除资源
             resourceService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }

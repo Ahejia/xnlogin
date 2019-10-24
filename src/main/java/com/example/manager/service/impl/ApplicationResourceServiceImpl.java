@@ -33,4 +33,19 @@ public class ApplicationResourceServiceImpl extends BaseServiceImpl<ApplicationR
         pageQuery.setPageMaxNum(pageSize * pageNun);
         return resourceMapper.getPage(pageQuery);
     }
+
+    @Override
+    public void updateApplicationId(Long applicationId) throws Exception{
+        resourceMapper.updateApplicationId(applicationId);
+    }
+
+    @Override
+    public void updateParentId(Long id) throws Exception {
+        resourceMapper.updateParentId(id);
+    }
+
+    @Override
+    public void deleteByResourceId(Long resourceId) throws Exception {
+        resourceMapper.deleteByResourceId(resourceId);
+    }
 }

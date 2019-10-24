@@ -89,4 +89,16 @@
     update PLATFORM_APPLICATION_ROLE set STATUS = 1 where id = #{id}
   </update>
 
+  <!--删除应用时把角色中的应用id置为0-->
+  <update id="updateApplicationId" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_ROLE set APPLICATION_ID = 0
+    where APPLICATION_ID = #{applicationId}
+  </update>
+
+  <!--删除关联表-->
+  <delete id="deleteByRoleId" parameterType="java.lang.Long">
+    delete from PLATFORM__MESSAGE_RESOUCE_ROLE
+    where ROLE_ID = #{roleId}
+  </delete>
+
 </mapper>

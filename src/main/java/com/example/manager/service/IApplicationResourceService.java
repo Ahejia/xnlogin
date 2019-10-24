@@ -26,4 +26,19 @@ public interface IApplicationResourceService extends IBaseService<ApplicationRes
      * @param pageNun 每页展示数量
      **/
     List<ApplicationResource> getPage(Integer pageSize, Integer pageNun)throws Exception;
+    /**
+     * @Description 删除应用时把资源中的应用id置为0
+     * @Date 14:39 2019/10/24
+     * @Param [applicationId] 应用编号
+    **/
+    void updateApplicationId(Long applicationId)throws Exception;
+    /**
+     * @Description 删除资源时把资源中的父id置为0
+     * @Date 14:39 2019/10/24
+     * @Param [id] 应用资源编号
+     **/
+    void updateParentId(Long id)throws Exception;
+
+    /**删除关联表中数据*/
+    void deleteByResourceId(Long resourceId)throws Exception;
 }

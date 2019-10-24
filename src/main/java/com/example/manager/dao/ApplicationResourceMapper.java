@@ -25,4 +25,21 @@ public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource>
      * 分页查询
      */
     List<ApplicationResource> getPage(PageQuery pageQuery) throws Exception;
+
+    /**
+     * @Description 删除应用时把资源中的应用id置为0
+     * @Date 14:39 2019/10/24
+     * @param applicationId 应用编号
+     **/
+    void updateApplicationId(Long applicationId)throws Exception;
+
+    /**
+     * @Description 删除资源时把资源中的父id置为0
+     * @Date 14:39 2019/10/24
+     * @param id 资源编号
+     **/
+    void updateParentId(Long id)throws Exception;
+
+    /**删除关联表*/
+    void deleteByResourceId(Long resourceId)throws Exception;
 }

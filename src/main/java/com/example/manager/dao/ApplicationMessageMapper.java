@@ -23,4 +23,7 @@ public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
      * 分页查询
      */
     List<ApplicationMessage> getPage(PageQuery pageQuery) throws Exception;
+
+    /**删除关联表中数据*/
+    void deleteByApplicationId(Long applicationId)throws Exception;
 }

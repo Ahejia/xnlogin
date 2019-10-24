@@ -25,4 +25,6 @@ public interface IApplicationMessageService extends IBaseService<ApplicationMess
      * @param pageNun 每页展示数量
     **/
     List<ApplicationMessage> getPage(Integer pageSize,Integer pageNun)throws Exception;
+    /**删除关联表中数据*/
+    void deleteByApplicationId(Long applicationId)throws Exception;
 }

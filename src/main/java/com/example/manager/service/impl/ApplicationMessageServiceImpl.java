@@ -33,4 +33,9 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
         pageQuery.setPageMaxNum(pageSize * pageNun);
         return messageMapper.getPage(pageQuery);
     }
+
+    @Override
+    public void deleteByApplicationId(Long applicationId) throws Exception {
+        messageMapper.deleteByApplicationId(applicationId);
+    }
 }

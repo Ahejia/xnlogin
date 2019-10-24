@@ -92,6 +92,9 @@ public class ApplicationRoleController extends BaseController {
     @PostMapping("/role/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
+            //删除关联表
+            roleService.deleteByRoleId(id);
+            //删除角色
             roleService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }

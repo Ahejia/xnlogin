@@ -275,4 +275,9 @@
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
+  <!--删除关联表中数据-->
+  <delete id="deleteByApplicationId" parameterType="java.lang.Long">
+    delete from PLATFORM__MESSAGE_RESOUCE_ROLE
+    where APPLICATION_ID = #{applicationId}
+  </delete>
 </mapper>

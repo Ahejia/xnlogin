@@ -165,4 +165,21 @@
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
+  <!--把应用资源中的应用编号置为0-->
+  <update id="updateApplicationId" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_RESOURCE set APPLICATION_ID = 0
+    where APPLICATION_ID = #{applicationId}
+  </update>
+
+  <!--把资源中的父id置为0-->
+  <update id="updateParentId" parameterType="java.lang.Long">
+    update PLATFORM_APPLICATION_RESOURCE set PARENT_ID = 0
+    where PARENT_ID = #{id}
+  </update>
+
+  <!--删除关联表-->
+  <delete id="deleteByResourceId" parameterType="java.lang.Long">
+    delete from PLATFORM__MESSAGE_RESOUCE_ROLE
+    where RESOURCE_ID = #{resourceId}
+  </delete>
 </mapper>
