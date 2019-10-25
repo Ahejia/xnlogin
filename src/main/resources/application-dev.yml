@@ -3,7 +3,7 @@ server:
 #设置实体所在的包，然后在mapper.xml里面不用写实体的全名，直接写实体的以小写字母开头的简单类名即可,例如：com.tracker.entity.User,可以直接写user
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.example.xnlogin.controller
+  type-aliases-package: com.example.manager.pojo
   configuration:
     mapUnderscoreToCamelCase: true
 

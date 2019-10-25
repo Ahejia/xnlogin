@@ -3,7 +3,7 @@ package com.example.manager.dao;
 import com.example.manager.base.IBaseDao;
 import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.vo.PageQuery;
-import org.apache.ibatis.annotations.Mapper;
+
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 应用资源
  * @Date:Create：in 2019/10/22 16:53
  */
-@Mapper
+
 public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource> {
     /**
      * @Description 根据编号禁用资源
