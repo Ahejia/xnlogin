@@ -13,3 +13,10 @@ spring:
     username: platform
     password: platform
     driverClassName: oracle.jdbc.driver.OracleDriver
+
+logging:
+  level:
+    com:
+      example:
+        manager:
+          dao: debug
