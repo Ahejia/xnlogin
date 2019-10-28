@@ -4,10 +4,10 @@ package com.example.manager.controller;
 import com.example.manager.base.BaseController;
 import com.example.manager.base.CommonResult;
 import com.example.manager.base.MessageCodeEnum;
-import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.pojo.ApplicationRole;
-import com.example.manager.service.IApplicationResourceService;
+import com.example.manager.pojo.MessageResourceRole;
 import com.example.manager.service.IApplicationRoleService;
+import com.example.manager.service.IMessageResourceRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -29,6 +29,8 @@ public class ApplicationRoleController extends BaseController {
 
     private Logger log = LoggerFactory.getLogger(ApplicationRoleController.class);
 
+    @Autowired
+    private IMessageResourceRoleService messageResourceRoleService;
     @Autowired
     private IApplicationRoleService applicationRoleService;
 
@@ -53,6 +55,18 @@ public class ApplicationRoleController extends BaseController {
     @PostMapping(value = "/role/save")
     @ApiOperation(value = "保存",notes = "保存角色信息")
     public CommonResult save(@RequestBody ApplicationRole applicationRole)throws Exception{
+        if(applicationRole.getId() == null){
+            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("角色编号不能为空");
+        }
+        if(applicationRole.getApplicationId() == null){
+            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
+        }
+        //保存信息到关联表
+        //未查询到相关信息，新保存
+        MessageResourceRole messageResourceRole = new MessageResourceRole();
+        messageResourceRole.setRoleId(applicationRole.getId());
+        messageResourceRole.setApplicationId(applicationRole.getApplicationId());
+        messageResourceRoleService.save(messageResourceRole);
         log.info("---保存应用角色信息---");
         applicationRoleService.save(applicationRole);
         return CommonResult.success().setMsg("保存成功");

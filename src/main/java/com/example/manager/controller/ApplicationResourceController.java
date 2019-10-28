@@ -4,10 +4,10 @@ package com.example.manager.controller;
 import com.example.manager.base.BaseController;
 import com.example.manager.base.CommonResult;
 import com.example.manager.base.MessageCodeEnum;
-import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.pojo.ApplicationResource;
-import com.example.manager.service.IApplicationMessageService;
+import com.example.manager.pojo.MessageResourceRole;
 import com.example.manager.service.IApplicationResourceService;
+import com.example.manager.service.IMessageResourceRoleService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,9 @@ import java.util.List;
 public class ApplicationResourceController extends BaseController {
 
     private Logger log = LoggerFactory.getLogger(ApplicationResourceController.class);
+
+    @Autowired
+    private IMessageResourceRoleService messageResourceRoleService;
 
     @Autowired
     private IApplicationResourceService applicationResourceService;
@@ -54,6 +57,18 @@ public class ApplicationResourceController extends BaseController {
     @PostMapping(value = "/resource/save")
     @ApiOperation(value = "保存",notes = "保存资源信息")
     public CommonResult save(@RequestBody ApplicationResource applicationResource)throws Exception{
+        if(applicationResource.getId() == null){
+            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("资源编号不能为空");
+        }
+        if(applicationResource.getApplicationId() == null){
+            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
+        }
+
+        log.info("保存信息到关联表");
+        MessageResourceRole messageResourceRole = new MessageResourceRole();
+        messageResourceRole.setApplicationId(applicationResource.getApplicationId());
+        messageResourceRole.setResourceId(applicationResource.getId());
+        messageResourceRoleService.save(messageResourceRole);
         log.info("---保存资源信息---");
         applicationResourceService.save(applicationResource);
         return CommonResult.success().setMsg("保存成功");
