@@ -23,6 +23,12 @@ public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
      */
     List<ApplicationMessage> getPage(PageQuery pageQuery) throws Exception;
 
+    /**
+     * @Description 查询总的数量
+     * @return java.lang.Integer
+     **/
+    Integer getCount()throws Exception;
+
     /**删除关联表中数据*/
     void deleteByApplicationId(Long applicationId)throws Exception;
 }

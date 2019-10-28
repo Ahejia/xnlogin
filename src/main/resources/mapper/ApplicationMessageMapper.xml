@@ -275,6 +275,11 @@
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
+  <!--查询总的数量-->
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(id) from PLATFORM_APPLICATION_MESSAGE
+  </select>
+
   <!--删除关联表中数据-->
   <delete id="deleteByApplicationId" parameterType="java.lang.Long">
     delete from PLATFORM__MESSAGE_RESOUCE_ROLE

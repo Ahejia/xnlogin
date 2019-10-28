@@ -28,11 +28,11 @@ public class ApplicationMessageController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(ApplicationMessageController.class);
 
     @Autowired
-    private IApplicationMessageService applicationMessageService;
+    private IApplicationMessageService messageService;
     @Autowired
-    private IApplicationResourceService applicationResourceService;
+    private IApplicationResourceService resourceService;
     @Autowired
-    private IApplicationRoleService applicationRoleService;
+    private IApplicationRoleService roleService;
 
     /**
      * @Author hj
@@ -44,7 +44,7 @@ public class ApplicationMessageController extends BaseController {
     @ApiOperation(value = "获取",notes = "获取所有应用信息")
     public CommonResult get()throws Exception{
         logger.info("---获取所有应用信息---");
-        List<ApplicationMessage> list = applicationMessageService.getAll();
+        List<ApplicationMessage> list = messageService.getAll();
         return CommonResult.success().addResult("list",list);
     }
 
@@ -58,7 +58,7 @@ public class ApplicationMessageController extends BaseController {
     @ApiOperation(value = "保存",notes = "保存应用信息")
     public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
         logger.info("---保存应用信息---");
-        applicationMessageService.save(applicationMessage);
+        messageService.save(applicationMessage);
         return CommonResult.success().setMsg("保存成功");
     }
 
@@ -73,7 +73,7 @@ public class ApplicationMessageController extends BaseController {
     public CommonResult update(@RequestBody ApplicationMessage applicationMessage)throws Exception{
         if(applicationMessage.getId() != null){
             logger.info("---修改应用信息---");
-            applicationMessageService.update(applicationMessage);
+            messageService.update(applicationMessage);
             return CommonResult.success().setMsg("修改成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
@@ -90,7 +90,7 @@ public class ApplicationMessageController extends BaseController {
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
             logger.info("---禁用编号为"+id+"的应用---");
-            applicationMessageService.hiddenById(id);
+            messageService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
             return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("应用编号不能为空");
@@ -108,16 +108,16 @@ public class ApplicationMessageController extends BaseController {
         if(id != null && id > 0){
             logger.info("---把资源表应用id为"+id+"的信息置为0---");
             //对应的资源表中的应用id置为0
-            applicationResourceService.updateApplicationId(id);
+            resourceService.updateApplicationId(id);
             logger.info("---把角色表应用id为"+id+"的信息置为0---");
             //对应的角色表中应用id置为0
-            applicationRoleService.updateApplicationId(id);
+            roleService.updateApplicationId(id);
             logger.info("---删除关联表中应用id为"+id+"的数据信息---");
             //删除关联表中数据
-            applicationMessageService.deleteByApplicationId(id);
+            messageService.deleteByApplicationId(id);
             //删除应用
             logger.info("---删除应用编号为"+id+"的应用信息---");
-            applicationMessageService.deleteById(id);
+            messageService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");
@@ -137,8 +137,9 @@ public class ApplicationMessageController extends BaseController {
     public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
                                 @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
         logger.info("---分页查询---");
-        List<ApplicationMessage> messages = applicationMessageService.getPage(pageSize, pageNum);
-        return CommonResult.success().setMsg("查询成功").addResult("list",messages);
+        List<ApplicationMessage> messages = messageService.getPage(pageSize, pageNum);
+        Integer count = messageService.getCount();
+        return CommonResult.success().setMsg("查询成功").addResult("list",messages).addResult("count",count);
     }
 
 

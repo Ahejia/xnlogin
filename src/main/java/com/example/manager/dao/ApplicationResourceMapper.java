@@ -12,7 +12,6 @@ import java.util.List;
  * @Description: 应用资源
  * @Date:Create：in 2019/10/22 16:53
  */
-
 public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource> {
     /**
      * @Description 根据编号禁用资源
@@ -25,6 +24,11 @@ public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource>
      * 分页查询
      */
     List<ApplicationResource> getPage(PageQuery pageQuery) throws Exception;
+    /**
+     * @Description 查询总的数量
+     * @return java.lang.Integer
+     **/
+    Integer getCount()throws Exception;
 
     /**
      * @Description 删除应用时把资源中的应用id置为0

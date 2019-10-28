@@ -165,6 +165,11 @@
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
+  <!--查询总的数量-->
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(id) from PLATFORM_APPLICATION_RESOURCE
+  </select>
+
   <!--把应用资源中的应用编号置为0-->
   <update id="updateApplicationId" parameterType="java.lang.Long">
     update PLATFORM_APPLICATION_RESOURCE set APPLICATION_ID = 0

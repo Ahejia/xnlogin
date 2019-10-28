@@ -26,6 +26,12 @@ public interface IApplicationResourceService extends IBaseService<ApplicationRes
      * @param pageNun 每页展示数量
      **/
     List<ApplicationResource> getPage(Integer pageSize, Integer pageNun)throws Exception;
+
+    /**
+     * @Description 总的数量
+     * @return java.lang.Integer
+     **/
+    Integer getCount()throws Exception;
     /**
      * @Description 删除应用时把资源中的应用id置为0
      * @Date 14:39 2019/10/24

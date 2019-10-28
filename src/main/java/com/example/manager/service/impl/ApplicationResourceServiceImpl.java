@@ -35,6 +35,11 @@ public class ApplicationResourceServiceImpl extends BaseServiceImpl<ApplicationR
     }
 
     @Override
+    public Integer getCount() throws Exception {
+        return resourceMapper.getCount();
+    }
+
+    @Override
     public void updateApplicationId(Long applicationId) throws Exception{
         resourceMapper.updateApplicationId(applicationId);
     }

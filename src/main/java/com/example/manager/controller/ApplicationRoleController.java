@@ -32,7 +32,7 @@ public class ApplicationRoleController extends BaseController {
     @Autowired
     private IMessageResourceRoleService messageResourceRoleService;
     @Autowired
-    private IApplicationRoleService applicationRoleService;
+    private IApplicationRoleService roleService;
 
     /**
      * @Description  获取所有的应用角色信息
@@ -43,7 +43,7 @@ public class ApplicationRoleController extends BaseController {
     @ApiOperation(value = "获取",notes = "获取应用角色信息")
     public CommonResult get()throws Exception{
         log.info("---获取所有的角色信息---");
-        List<ApplicationRole> list = applicationRoleService.getAll();
+        List<ApplicationRole> list = roleService.getAll();
         return CommonResult.success().addResult("list",list);
     }
 
@@ -68,7 +68,7 @@ public class ApplicationRoleController extends BaseController {
         messageResourceRole.setApplicationId(applicationRole.getApplicationId());
         messageResourceRoleService.save(messageResourceRole);
         log.info("---保存应用角色信息---");
-        applicationRoleService.save(applicationRole);
+        roleService.save(applicationRole);
         return CommonResult.success().setMsg("保存成功");
     }
 
@@ -82,7 +82,7 @@ public class ApplicationRoleController extends BaseController {
     public CommonResult update(@RequestBody ApplicationRole applicationRole)throws Exception{
         if(applicationRole.getId() != null){
             log.info("---修改编号为"+applicationRole.getId()+"的角色信息---");
-            applicationRoleService.update(applicationRole);
+            roleService.update(applicationRole);
             return CommonResult.success().setMsg("修改成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("角色编号不能为空");
@@ -99,7 +99,7 @@ public class ApplicationRoleController extends BaseController {
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
             log.info("---禁用编号为"+id+"的角色信息---");
-            applicationRoleService.hiddenById(id);
+            roleService.hiddenById(id);
             return CommonResult.success().setMsg("禁用成功");
         }
             return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");
@@ -116,10 +116,10 @@ public class ApplicationRoleController extends BaseController {
         if(id != null && id > 0){
             log.info("---删除关联表---");
             //删除关联表
-            applicationRoleService.deleteByRoleId(id);
+            roleService.deleteByRoleId(id);
             //删除角色
             log.info("---删除编号为"+id+"的角色信息---");
-            applicationRoleService.deleteById(id);
+            roleService.deleteById(id);
             return CommonResult.success().setMsg("删除成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");
