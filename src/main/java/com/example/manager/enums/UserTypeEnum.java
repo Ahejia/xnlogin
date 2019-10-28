@@ -1,4 +1,4 @@
-package com.example.manager.base;
+package com.example.manager.enums;
 
 /**
  * <P> request请求里面userId的类型 </p>
