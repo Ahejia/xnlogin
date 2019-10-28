@@ -99,12 +99,12 @@ public class ApplicationResourceController extends BaseController {
      * @return com.example.manager.base.CommonResult
     **/
     @PostMapping("/resource/hidden/{id}")
-    @ApiOperation(value = "禁用",notes = "禁用资源信息")
+    @ApiOperation(value = "禁用/启用",notes = "禁用/启用资源信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
-            log.info("---禁用编号为"+id+"的资源信息---");
+            log.info("---修改编号为"+id+"的资源信息状态---");
             resourceService.hiddenById(id);
-            return CommonResult.success().setMsg("禁用成功");
+            return CommonResult.success().setMsg("修改编号为"+id+"资源状态成功");
         }
             return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("编号不能为空");
     }

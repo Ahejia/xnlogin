@@ -23,7 +23,8 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
 
     @Override
     public void hiddenById(Long id) throws Exception {
-        messageMapper.hiddenById(id);
+        ApplicationMessage message = messageMapper.getById(id);
+        messageMapper.hiddenById(message);
     }
 
     @Override

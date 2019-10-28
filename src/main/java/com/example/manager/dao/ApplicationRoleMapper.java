@@ -16,11 +16,11 @@ import java.util.List;
 public interface ApplicationRoleMapper extends IBaseDao<ApplicationRole> {
     /**
      * @Author hj
-     * @Description 根据角色禁用
+     * @Description 根据角色禁用/启用
      * @Date 9:28 2019/10/24
      * @Param [id] 角色编号
     **/
-    void hiddenById(Long id)throws Exception;
+    void hiddenById(ApplicationRole applicationRole)throws Exception;
 
     /**
      * 分页查询

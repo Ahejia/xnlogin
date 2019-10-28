@@ -23,7 +23,8 @@ public class ApplicationResourceServiceImpl extends BaseServiceImpl<ApplicationR
 
     @Override
     public void hiddenById(Long id) throws Exception {
-        resourceMapper.hiddenById(id);
+        ApplicationResource resource = resourceMapper.getById(id);
+        resourceMapper.hiddenById(resource);
     }
 
     @Override

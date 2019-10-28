@@ -85,8 +85,13 @@
   </update>
 
   <!--新增sql-->
-  <update id="hiddenById" parameterType="java.lang.Long">
-    update PLATFORM_APPLICATION_ROLE set STATUS = 1 where id = #{id}
+  <update id="hiddenById" parameterType="com.example.manager.pojo.ApplicationRole">
+    update PLATFORM_APPLICATION_ROLE
+    <set>
+      <if test="status == 1">status = 0</if>
+      <if test="status == 0">status = 1</if>
+    </set>
+    where id = #{id}
   </update>
 
   <!--分页查询-->

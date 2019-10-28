@@ -150,8 +150,13 @@
 
   <!--新增sql-->
   <!--根据编号禁用资源-->
-  <update id="hiddenById" parameterType="java.lang.Long">
-    update PLATFORM_APPLICATION_RESOURCE set STATUS = 1 where id = #{id}
+  <update id="hiddenById" parameterType="com.example.manager.pojo.ApplicationResource">
+    update PLATFORM_APPLICATION_RESOURCE
+    <set>
+      <if test="status == 1">status = 0</if>
+      <if test="status == 0">status = 1</if>
+    </set>
+     where id = #{id}
   </update>
 
   <!--分页查询-->

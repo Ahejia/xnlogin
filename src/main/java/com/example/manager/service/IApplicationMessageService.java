@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface IApplicationMessageService extends IBaseService<ApplicationMessage> {
     /**
-     * @Description 禁用
+     * @Description 禁用、启用
      * @Date 17:19 2019/10/23
-     * @Param [id] 应用id
+     * @param id 编号
     **/
     void hiddenById(Long id)throws Exception;
     /**

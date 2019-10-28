@@ -3,6 +3,7 @@ package com.example.manager.dao;
 import com.example.manager.base.IBaseDao;
 import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.vo.PageQuery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
 
 public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
     /**
-     * @Description 禁用信息
+     * @Description 禁用/启用信息
      **/
-    void hiddenById(Long id) throws Exception;
+    void hiddenById(ApplicationMessage applicationMessage) throws Exception;
 
     /**
      * 分页查询

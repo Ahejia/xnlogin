@@ -86,12 +86,12 @@ public class ApplicationMessageController extends BaseController {
      * @Param [id] 应用id
     **/
     @PostMapping("/message/hidden/{id}")
-    @ApiOperation(value = "禁用",notes = "禁用应用信息")
+    @ApiOperation(value = "禁用/启用",notes = "禁用/启用应用信息")
     public CommonResult hiddenById(@PathVariable Long id)throws Exception{
         if(id != null && id > 0){
-            logger.info("---禁用编号为"+id+"的应用---");
+            logger.info("---修改编号为"+id+"的应用状态---");
             messageService.hiddenById(id);
-            return CommonResult.success().setMsg("禁用成功");
+            return CommonResult.success().setMsg("修改状态成功");
         }
             return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID).setMsg("应用编号不能为空");
     }

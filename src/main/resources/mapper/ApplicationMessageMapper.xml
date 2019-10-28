@@ -258,9 +258,13 @@
   </update>
 
   <!--新增sql-->
-  <!--禁用应用信息-->
-  <update id="hiddenById" parameterType="java.lang.Long">
-    update PLATFORM_APPLICATION_MESSAGE set status = 1
+  <!--禁用启用应用信息-->
+  <update id="hiddenById" parameterType="com.example.manager.pojo.ApplicationMessage" >
+    update PLATFORM_APPLICATION_MESSAGE
+    <set>
+      <if test="status == 1">status = 0</if>
+      <if test="status == 0">status = 1</if>
+    </set>
     where id = #{id}
   </update>
 

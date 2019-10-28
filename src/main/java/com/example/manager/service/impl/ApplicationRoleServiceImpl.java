@@ -23,7 +23,8 @@ public class ApplicationRoleServiceImpl extends BaseServiceImpl<ApplicationRole>
 
     @Override
     public void hiddenById(Long id) throws Exception {
-        roleMapper.hiddenById(id);
+        ApplicationRole role = roleMapper.getById(id);
+        roleMapper.hiddenById(role);
     }
 
     @Override

@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface ApplicationResourceMapper extends IBaseDao<ApplicationResource> {
     /**
-     * @Description 根据编号禁用资源
+     * @Description 根据编号禁用/启用资源
      * @Date 9:21 2019/10/24
      * @Param [id] 编号
     **/
-    void hiddenById(Long id)throws Exception;
+    void hiddenById(ApplicationResource applicationResource)throws Exception;
 
     /**
      * 分页查询
