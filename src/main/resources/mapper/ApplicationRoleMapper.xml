@@ -89,6 +89,21 @@
     update PLATFORM_APPLICATION_ROLE set STATUS = 1 where id = #{id}
   </update>
 
+  <!--分页查询-->
+  <select id="getPage" resultMap="BaseResultMap" parameterType="com.example.manager.vo.PageQuery">
+    SELECT *
+    FROM (SELECT tt.*, ROWNUM AS rowno
+    FROM (  SELECT t.<include refid="Base_Column_List"/>
+    FROM PLATFORM_APPLICATION_ROLE t) tt
+    WHERE ROWNUM &lt;= #{pageMaxNum}) table_alias
+    WHERE table_alias.rowno &gt; #{pageMinNum}
+  </select>
+
+  <!--获取数量-->
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(id) from PLATFORM_APPLICATION_ROLE
+  </select>
+
   <!--删除应用时把角色中的应用id置为0-->
   <update id="updateApplicationId" parameterType="java.lang.Long">
     update PLATFORM_APPLICATION_ROLE set APPLICATION_ID = 0

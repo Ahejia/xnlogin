@@ -3,7 +3,7 @@ package com.example.manager.controller;
 
 import com.example.manager.base.BaseController;
 import com.example.manager.base.CommonResult;
-import com.example.manager.base.MessageCodeEnum;
+import com.example.manager.enums.MessageCodeEnum;
 import com.example.manager.pojo.ApplicationResource;
 import com.example.manager.pojo.MessageResourceRole;
 import com.example.manager.service.IApplicationResourceService;

@@ -3,6 +3,9 @@ package com.example.manager.dao;
 
 import com.example.manager.base.IBaseDao;
 import com.example.manager.pojo.ApplicationRole;
+import com.example.manager.vo.PageQuery;
+
+import java.util.List;
 
 /**
  * @Author: hj
@@ -18,6 +21,16 @@ public interface ApplicationRoleMapper extends IBaseDao<ApplicationRole> {
      * @Param [id] 角色编号
     **/
     void hiddenById(Long id)throws Exception;
+
+    /**
+     * 分页查询
+     */
+    List<ApplicationRole> getPage(PageQuery pageQuery) throws Exception;
+    /**
+     * @Description 获取数量
+     * @return java.lang.Integer
+    **/
+    Integer getCount()throws Exception;
 
     /**
      * @Description 删除应用时把角色中的应用id置为0

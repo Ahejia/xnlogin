@@ -14,7 +14,7 @@ public enum CodeEnum {
     PASSWORD_IS_EMPTY(701,"密码不能为空"),
     PASSWORD_IS_FALSE(702, "密码不正确"),
     EMAIL_FAILED(801, "验证码失效或验证码不一致，请重新输入"),
-    FAILED(520, "失败");
+    FAILED(555, "失败");
 
     /**返回的code*/
     private Integer code;

@@ -3,12 +3,14 @@ package com.example.manager.controller;
 
 import com.example.manager.base.BaseController;
 import com.example.manager.base.CommonResult;
-import com.example.manager.base.MessageCodeEnum;
+import com.example.manager.enums.MessageCodeEnum;
 import com.example.manager.pojo.ApplicationRole;
 import com.example.manager.pojo.MessageResourceRole;
 import com.example.manager.service.IApplicationRoleService;
 import com.example.manager.service.IMessageResourceRoleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,25 @@ public class ApplicationRoleController extends BaseController {
         log.info("---获取所有的角色信息---");
         List<ApplicationRole> list = roleService.getAll();
         return CommonResult.success().addResult("list",list);
+    }
+
+    /**
+     * @Description
+     * @Date 12:28 2019/10/24
+     * @param pageNum 每页展示数量
+     * @param pageSize 当前页
+     * @return com.example.manager.base.CommonResult
+     **/
+    @ApiOperation(value = "分页",notes = "分页查询角色信息")
+    @ApiImplicitParams({@ApiImplicitParam(name = "pageSize", value = "当前页",required = false,defaultValue = "1",dataType = "Integer",paramType = "query"),
+            @ApiImplicitParam(name = "pageNum", value = "每页展示数量",required = false,defaultValue = "10",dataType = "Integer",paramType = "query")})
+    @GetMapping("/role/get/page")
+    public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
+                                @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
+        log.info("---分页查询资源信息---");
+        Integer count = roleService.getCount();
+        List<ApplicationRole> roles = roleService.getPage(pageSize, pageNum);
+        return CommonResult.success().setMsg("查询成功").addResult("list",roles).addResult("count",count);
     }
 
     /**

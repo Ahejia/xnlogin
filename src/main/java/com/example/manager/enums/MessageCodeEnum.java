@@ -1,4 +1,4 @@
-package com.example.manager.base;
+package com.example.manager.enums;
 
 /**
  * 错误消息枚举

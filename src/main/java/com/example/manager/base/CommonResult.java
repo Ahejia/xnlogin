@@ -2,6 +2,7 @@ package com.example.manager.base;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.manager.enums.CodeEnum;
+import com.example.manager.enums.MessageCodeEnum;
 
 import java.io.Serializable;
 import java.util.HashMap;
