@@ -17,7 +17,7 @@ public class ApplicationMessage extends BaseEntity {
      * 应用编号（例如00001）
      */
     @ApiModelProperty("应用编号（例如00001）")
-    private Long serialNumber;
+    private String serialNumber;
     /**
      * 全称
      */
@@ -119,11 +119,11 @@ public class ApplicationMessage extends BaseEntity {
     @ApiModelProperty("自动填表配置")
     private String autoConfigFile;
 
-    public Long getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(Long serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.example.manager.dao.ApplicationMessageMapper" >
   <resultMap id="BaseResultMap" type="com.example.manager.pojo.ApplicationMessage" >
     <id column="ID" property="id" jdbcType="DECIMAL" />
-    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
     <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
     <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
     <result column="VERSION" property="version" jdbcType="VARCHAR" />
@@ -123,7 +123,7 @@
         #{id,jdbcType=DECIMAL},
       </if>
       <if test="serialNumber != null" >
-        #{serialNumber,jdbcType=DECIMAL},
+        #{serialNumber,jdbcType=VARCHAR},
       </if>
       <if test="fullName != null" >
         #{fullName,jdbcType=VARCHAR},
@@ -191,7 +191,7 @@
     update PLATFORM_APPLICATION_MESSAGE
     <set >
       <if test="serialNumber != null" >
-        SERIAL_NUMBER = #{serialNumber,jdbcType=DECIMAL},
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
       </if>
       <if test="fullName != null" >
         FULL_NAME = #{fullName,jdbcType=VARCHAR},
