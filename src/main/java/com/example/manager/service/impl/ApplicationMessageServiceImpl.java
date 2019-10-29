@@ -41,6 +41,11 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
     }
 
     @Override
+    public List<ApplicationMessage> getAllMessageName() throws Exception {
+        return messageMapper.getAllMessageName();
+    }
+
+    @Override
     public void deleteByApplicationId(Long applicationId) throws Exception {
         messageMapper.deleteByApplicationId(applicationId);
     }

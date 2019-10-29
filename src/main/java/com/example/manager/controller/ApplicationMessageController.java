@@ -142,6 +142,20 @@ public class ApplicationMessageController extends BaseController {
         return CommonResult.success().setMsg("查询成功").addResult("list",messages).addResult("count",count);
     }
 
+    /**
+     * @Author hj
+     * @Description  获取所有的应用信息
+     * @Date 16:17 2019/10/23
+     * @return com.example.manager.base.CommonResult
+     **/
+    @GetMapping(value = "message/get/name")
+    @ApiOperation(value = "获取编号与名称",notes = "获取应用信息的名称与编号")
+    public CommonResult getAllMessageName()throws Exception{
+        logger.info("---获取编号与名称---");
+        List<ApplicationMessage> list = messageService.getAllMessageName();
+        return CommonResult.success().addResult("list",list);
+    }
+
 
 
 }

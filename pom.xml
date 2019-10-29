@@ -92,7 +92,7 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/lib/ojdbc6.jar</systemPath>
         </dependency>
-        
+
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>

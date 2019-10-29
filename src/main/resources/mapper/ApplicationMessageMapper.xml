@@ -25,6 +25,7 @@
     <result column="INIT_SCRIPT" property="initScript" jdbcType="VARCHAR" />
     <result column="AUTO_CONFIG_FILE" property="autoConfigFile" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME, VERSION, MAIN_ENTRY, APPLICATION_ICON, 
     UNIFY_ACCESS, DEPLAY_TIME, ALLOW_CONCURRENCY, STATUS, REMARK, CREATE_TIME, UPDATE_TIME, 
@@ -289,4 +290,19 @@
     delete from PLATFORM__MESSAGE_RESOUCE_ROLE
     where APPLICATION_ID = #{applicationId}
   </delete>
+
+  <resultMap id="BaseResultMap1" type="com.example.manager.pojo.ApplicationMessage" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME
+  </sql>
+    <!--获取所有应用的名称与编号-->
+    <select id="getAllMessageName" resultMap="BaseResultMap1">
+      select <include refid="Base_Column_List1"/>
+      from PLATFORM_APPLICATION_MESSAGE
+    </select>
 </mapper>

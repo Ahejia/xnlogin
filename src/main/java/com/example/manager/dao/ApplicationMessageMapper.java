@@ -29,6 +29,12 @@ public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
      * @return java.lang.Integer
      **/
     Integer getCount()throws Exception;
+    /**
+     * @Description 获取所有应用的名称与编号
+     * @Date 10:11 2019/10/29
+     * @return java.util.List<com.example.manager.pojo.ApplicationMessage>
+    **/
+    List<ApplicationMessage> getAllMessageName()throws Exception;
 
     /**删除关联表中数据*/
     void deleteByApplicationId(Long applicationId)throws Exception;
