@@ -18,6 +18,13 @@ public interface IApplicationMessageService extends IBaseService<ApplicationMess
      * @param id 编号
     **/
     void hiddenById(Long id)throws Exception;
+
+    /**
+     * @Description 获取当前的序列号
+     * @Date 16:05 2019/10/30
+     * @return java.lang.Long
+     **/
+    Long getNextVal()throws Exception;
     /**
      * @Description
      * @Date 11:22 2019/10/24

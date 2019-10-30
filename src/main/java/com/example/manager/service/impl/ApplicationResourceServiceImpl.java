@@ -28,6 +28,11 @@ public class ApplicationResourceServiceImpl extends BaseServiceImpl<ApplicationR
     }
 
     @Override
+    public Long getNextVal() throws Exception {
+        return resourceMapper.getNextVal();
+    }
+
+    @Override
     public List<ApplicationResource> getPage(Integer pageSize, Integer pageNun) throws Exception {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageMinNum((pageSize-1) * pageNun);

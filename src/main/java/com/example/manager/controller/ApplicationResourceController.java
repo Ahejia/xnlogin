@@ -57,9 +57,9 @@ public class ApplicationResourceController extends BaseController {
     @PostMapping(value = "/resource/save")
     @ApiOperation(value = "保存",notes = "保存资源信息")
     public CommonResult save(@RequestBody ApplicationResource applicationResource)throws Exception{
-        if(applicationResource.getId() == null){
-            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("资源编号不能为空");
-        }
+        //获取下一个序列号
+        Long nextVal = resourceService.getNextVal();
+        applicationResource.setId(nextVal);
         if(applicationResource.getApplicationId() == null){
             return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
         }

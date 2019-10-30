@@ -57,6 +57,9 @@ public class ApplicationMessageController extends BaseController {
     @PostMapping(value = "/message/save")
     @ApiOperation(value = "保存",notes = "保存应用信息")
     public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
+        //获取序列号
+        Long nextVal = messageService.getNextVal();
+        applicationMessage.setId(nextVal);
         logger.info("---保存应用信息---");
         messageService.save(applicationMessage);
         return CommonResult.success().setMsg("保存成功");

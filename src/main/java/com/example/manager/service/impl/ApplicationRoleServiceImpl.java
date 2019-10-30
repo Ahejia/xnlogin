@@ -28,6 +28,11 @@ public class ApplicationRoleServiceImpl extends BaseServiceImpl<ApplicationRole>
     }
 
     @Override
+    public Long getNextVal() throws Exception {
+        return roleMapper.getNextVal();
+    }
+
+    @Override
     public List<ApplicationRole> getPage(Integer pageSize, Integer pageNun) throws Exception {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageMinNum((pageSize-1) * pageNun);

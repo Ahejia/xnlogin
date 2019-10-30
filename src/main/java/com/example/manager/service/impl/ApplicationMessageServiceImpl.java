@@ -28,6 +28,11 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
     }
 
     @Override
+    public Long getNextVal() throws Exception {
+        return messageMapper.getNextVal();
+    }
+
+    @Override
     public List<ApplicationMessage> getPage(Integer pageSize, Integer pageNun) throws Exception {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageMinNum((pageSize-1) * pageNun);

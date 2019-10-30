@@ -23,6 +23,13 @@ public interface ApplicationRoleMapper extends IBaseDao<ApplicationRole> {
     void hiddenById(ApplicationRole applicationRole)throws Exception;
 
     /**
+     * @Description 获取当前的序列号
+     * @Date 16:08 2019/10/30
+     * @return java.lang.Long
+     **/
+    Long getNextVal()throws Exception;
+
+    /**
      * 分页查询
      */
     List<ApplicationRole> getPage(PageQuery pageQuery) throws Exception;

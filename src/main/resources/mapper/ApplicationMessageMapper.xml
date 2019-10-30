@@ -305,4 +305,9 @@
       select <include refid="Base_Column_List1"/>
       from PLATFORM_APPLICATION_MESSAGE
     </select>
+
+  <!--获取当前的序列号-->
+  <select id="getNextVal" resultType="java.lang.Long">
+    select quenceMessage.nextval as id from dual
+  </select>
 </mapper>

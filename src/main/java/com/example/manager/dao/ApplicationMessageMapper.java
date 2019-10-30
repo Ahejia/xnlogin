@@ -20,6 +20,13 @@ public interface ApplicationMessageMapper extends IBaseDao<ApplicationMessage> {
     void hiddenById(ApplicationMessage applicationMessage) throws Exception;
 
     /**
+     * @Description 获取当前的序列号
+     * @Date 16:08 2019/10/30
+     * @return java.lang.Long
+     **/
+    Long getNextVal()throws Exception;
+
+    /**
      * 分页查询
      */
     List<ApplicationMessage> getPage(PageQuery pageQuery) throws Exception;

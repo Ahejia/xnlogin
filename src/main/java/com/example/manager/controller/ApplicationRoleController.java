@@ -76,9 +76,9 @@ public class ApplicationRoleController extends BaseController {
     @PostMapping(value = "/role/save")
     @ApiOperation(value = "保存",notes = "保存角色信息")
     public CommonResult save(@RequestBody ApplicationRole applicationRole)throws Exception{
-        if(applicationRole.getId() == null){
-            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("角色编号不能为空");
-        }
+        //获取序列号
+        Long nextVal = roleService.getNextVal();
+        applicationRole.setId(nextVal);
         if(applicationRole.getApplicationId() == null){
             return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
         }

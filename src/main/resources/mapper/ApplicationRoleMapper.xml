@@ -121,4 +121,9 @@
     where ROLE_ID = #{roleId}
   </delete>
 
+  <!--获取当前的序列号-->
+  <select id="getNextVal" resultType="java.lang.Long">
+    select quenceRole.nextval as id from dual
+  </select>
+
 </mapper>
