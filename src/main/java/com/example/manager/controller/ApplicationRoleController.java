@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,22 +76,32 @@ public class ApplicationRoleController extends BaseController {
      **/
     @PostMapping(value = "/role/save")
     @ApiOperation(value = "保存",notes = "保存角色信息")
-    public CommonResult save(@RequestBody ApplicationRole applicationRole)throws Exception{
-        //获取序列号
-        Long nextVal = roleService.getNextVal();
-        applicationRole.setId(nextVal);
-        if(applicationRole.getApplicationId() == null){
-            return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
+    public CommonResult save(@RequestBody List<ApplicationRole> applicationRoles)throws Exception{
+        List<ApplicationRole>roles = new ArrayList<>();
+        if(applicationRoles.size() > 0 && applicationRoles != null){
+            for(ApplicationRole applicationRole: applicationRoles){
+                if(applicationRole.getApplicationId() == null){
+                    return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
+                }
+                //获取序列号
+                Long nextVal = roleService.getNextVal();
+                applicationRole.setId(nextVal);
+                roles.add(applicationRole);
+            }
+            for(ApplicationRole applicationRole: roles){
+                //保存信息到关联表
+                //未查询到相关信息，新保存
+                MessageResourceRole messageResourceRole = new MessageResourceRole();
+                messageResourceRole.setRoleId(applicationRole.getId());
+                messageResourceRole.setApplicationId(applicationRole.getApplicationId());
+                messageResourceRoleService.save(messageResourceRole);
+                log.info("---保存应用角色信息---");
+                roleService.save(applicationRole);
+            }
+            return CommonResult.success().setMsg("保存成功");
         }
-        //保存信息到关联表
-        //未查询到相关信息，新保存
-        MessageResourceRole messageResourceRole = new MessageResourceRole();
-        messageResourceRole.setRoleId(applicationRole.getId());
-        messageResourceRole.setApplicationId(applicationRole.getApplicationId());
-        messageResourceRoleService.save(messageResourceRole);
-        log.info("---保存应用角色信息---");
-        roleService.save(applicationRole);
-        return CommonResult.success().setMsg("保存成功");
+        return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID);
+
     }
 
     /**

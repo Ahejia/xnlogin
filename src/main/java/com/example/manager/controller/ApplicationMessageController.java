@@ -56,13 +56,19 @@ public class ApplicationMessageController extends BaseController {
      **/
     @PostMapping(value = "/message/save")
     @ApiOperation(value = "保存",notes = "保存应用信息")
-    public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) ApplicationMessage applicationMessage)throws Exception{
-        //获取序列号
-        Long nextVal = messageService.getNextVal();
-        applicationMessage.setId(nextVal);
-        logger.info("---保存应用信息---");
-        messageService.save(applicationMessage);
-        return CommonResult.success().setMsg("保存成功");
+    public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) List<ApplicationMessage> applicationMessages)throws Exception{
+        if(applicationMessages.size() > 0 && applicationMessages != null){
+            for(ApplicationMessage applicationMessage : applicationMessages){
+                //获取序列号
+                Long nextVal = messageService.getNextVal();
+                applicationMessage.setId(nextVal);
+                logger.info("---保存应用信息---");
+                messageService.save(applicationMessage);
+            }
+            return CommonResult.success().setMsg("保存成功");
+        }
+        return CommonResult.failed(MessageCodeEnum.NO_DATA);
+
     }
 
     /**
