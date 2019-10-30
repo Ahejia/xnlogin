@@ -92,12 +92,12 @@ public class ApplicationMessage extends BaseEntity {
      * 类型
      */
     @ApiModelProperty("类型")
-    private String type;
+    private Short type;
     /**
      * 认证方式
      */
     @ApiModelProperty("认证方式")
-    private String authentication;
+    private Short authentication;
     /**
      * 网页启动*方式
      */
@@ -239,20 +239,20 @@ public class ApplicationMessage extends BaseEntity {
         this.sort = sort;
     }
 
-    public String getType() {
+    public Short getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setType(Short type) {
+        this.type = type;
     }
 
-    public String getAuthentication() {
+    public Short getAuthentication() {
         return authentication;
     }
 
-    public void setAuthentication(String authentication) {
-        this.authentication = authentication == null ? null : authentication.trim();
+    public void setAuthentication(Short authentication) {
+        this.authentication = authentication;
     }
 
     public String getWebStartUrl() {

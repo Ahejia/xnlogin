@@ -18,8 +18,8 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="STOP_TIME" property="stopTime" jdbcType="TIMESTAMP" />
     <result column="SORT" property="sort" jdbcType="FLOAT" />
-    <result column="TYPE" property="type" jdbcType="VARCHAR" />
-    <result column="AUTHENTICATION" property="authentication" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="AUTHENTICATION" property="authentication" jdbcType="DECIMAL" />
     <result column="WEB_START_URL" property="webStartUrl" jdbcType="VARCHAR" />
     <result column="COMMAND_LINE" property="commandLine" jdbcType="VARCHAR" />
     <result column="INIT_SCRIPT" property="initScript" jdbcType="VARCHAR" />
@@ -169,10 +169,10 @@
         #{sort,jdbcType=FLOAT},
       </if>
       <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
+        #{type,jdbcType=DECIMAL},
       </if>
       <if test="authentication != null" >
-        #{authentication,jdbcType=VARCHAR},
+        #{authentication,jdbcType=DECIMAL},
       </if>
       <if test="webStartUrl != null" >
         #{webStartUrl,jdbcType=VARCHAR},
@@ -237,10 +237,10 @@
         SORT = #{sort,jdbcType=FLOAT},
       </if>
       <if test="type != null" >
-        TYPE = #{type,jdbcType=VARCHAR},
+        TYPE = #{type,jdbcType=DECIMAL},
       </if>
       <if test="authentication != null" >
-        AUTHENTICATION = #{authentication,jdbcType=VARCHAR},
+        AUTHENTICATION = #{authentication,jdbcType=DECIMAL},
       </if>
       <if test="webStartUrl != null" >
         WEB_START_URL = #{webStartUrl,jdbcType=VARCHAR},
