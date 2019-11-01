@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.OrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.Organization" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="EASY_NAME" property="easyName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="COORDINATE" property="coordinate" jdbcType="VARCHAR" />
+    <result column="PHONE_NUM" property="phoneNum" jdbcType="DECIMAL" />
+    <result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
+    <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
+    <result column="FATHER_ID" property="fatherId" jdbcType="VARCHAR" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, FULL_NAME, EASY_NAME, ADDRESS, COORDINATE, PHONE_NUM, CONTACTS, IS_EFFECTIVE, 
+    FATHER_ID, TYPE_CODE, DESCRIPTION, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME, 
+    UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORGANIZATION
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+  </select>
+  <update id="deleteById" parameterType="java.lang.String" >
+    update ORGANIZATION set DEL_STATUS = `1` where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.Organization" keyProperty="ID" useGeneratedKeys="true">
+    insert into ORGANIZATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="easyName != null" >
+        EASY_NAME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="coordinate != null" >
+        COORDINATE,
+      </if>
+      <if test="phoneNum != null" >
+        PHONE_NUM,
+      </if>
+      <if test="contacts != null" >
+        CONTACTS,
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE,
+      </if>
+      <if test="fatherId != null" >
+        FATHER_ID,
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="easyName != null" >
+        #{easyName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=DECIMAL},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="fatherId != null" >
+        #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.example.manager.pojo.Organization" >
+    update ORGANIZATION
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="easyName != null" >
+        EASY_NAME = #{easyName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null" >
+        COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        PHONE_NUM = #{phoneNum,jdbcType=DECIMAL},
+      </if>
+      <if test="contacts != null" >
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="fatherId != null" >
+        FATHER_ID = #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

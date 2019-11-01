@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.OrganizationTypeCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.OrganizationTypeCode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE_NUM" property="typeNum" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE_NUM, NAME, IS_EFFECTIVE, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME, 
+    UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORGANIZATION_TYPE_CODE
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String" >
+    update ORGANIZATION_TYPE_CODE set DEL_STATUS = `1` where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.OrganizationTypeCode" keyProperty="ID" useGeneratedKeys="true" >
+    insert into ORGANIZATION_TYPE_CODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="typeNum != null" >
+        TYPE_NUM,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeNum != null" >
+        #{typeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.example.manager.pojo.OrganizationTypeCode" >
+    update ORGANIZATION_TYPE_CODE
+    <set >
+      <if test="typeNum != null" >
+        TYPE_NUM = #{typeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

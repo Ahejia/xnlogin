@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.UserInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_ID" property="organizationId" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_NUM" property="accountNum" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_PWD" property="accountPwd" jdbcType="VARCHAR" />
+    <result column="HEAD_PICTURE" property="headPicture" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="DECIMAL" />
+    <result column="AGE" property="age" jdbcType="DECIMAL" />
+    <result column="ID_CARD_NUM" property="idCardNum" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="AUTHORIZATION_SYSTEM" property="authorizationSystem" jdbcType="VARCHAR" />
+    <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
+    <result column="FROM_ID" property="fromId" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORGANIZATION_ID, ACCOUNT_NUM, ACCOUNT_PWD, HEAD_PICTURE, SEX, AGE, ID_CARD_NUM, 
+    FULL_NAME, BIRTHDAY, PHONE_NUM, EMAIL, AUTHORIZATION_SYSTEM, IS_EFFECTIVE, FROM_ID, 
+    STAFF_ID, CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, 
+    DEL_STATUS
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String" >
+    update USER_INFO set DEL_STATUS = `1`
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.UserInfo" keyProperty="ID" useGeneratedKeys="true">
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="organizationId != null" >
+        ORGANIZATION_ID,
+      </if>
+      <if test="accountNum != null" >
+        ACCOUNT_NUM,
+      </if>
+      <if test="accountPwd != null" >
+        ACCOUNT_PWD,
+      </if>
+      <if test="headPicture != null" >
+        HEAD_PICTURE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="idCardNum != null" >
+        ID_CARD_NUM,
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="phoneNum != null" >
+        PHONE_NUM,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="authorizationSystem != null" >
+        AUTHORIZATION_SYSTEM,
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE,
+      </if>
+      <if test="fromId != null" >
+        FROM_ID,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNum != null" >
+        #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPwd != null" >
+        #{accountPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="headPicture != null" >
+        #{headPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="idCardNum != null" >
+        #{idCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizationSystem != null" >
+        #{authorizationSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="fromId != null" >
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.manager.pojo.UserInfo" >
+    update USER_INFO
+    <set >
+      <if test="organizationId != null" >
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNum != null" >
+        ACCOUNT_NUM = #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPwd != null" >
+        ACCOUNT_PWD = #{accountPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="headPicture != null" >
+        HEAD_PICTURE = #{headPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="age != null" >
+        AGE = #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="idCardNum != null" >
+        ID_CARD_NUM = #{idCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizationSystem != null" >
+        AUTHORIZATION_SYSTEM = #{authorizationSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null" >
+        IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
+      </if>
+      <if test="fromId != null" >
+        FROM_ID = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.manager.pojo.UserInfo" >
+    update USER_INFO
+    set ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      ACCOUNT_NUM = #{accountNum,jdbcType=VARCHAR},
+      ACCOUNT_PWD = #{accountPwd,jdbcType=VARCHAR},
+      HEAD_PICTURE = #{headPicture,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=DECIMAL},
+      AGE = #{age,jdbcType=DECIMAL},
+      ID_CARD_NUM = #{idCardNum,jdbcType=VARCHAR},
+      FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      AUTHORIZATION_SYSTEM = #{authorizationSystem,jdbcType=VARCHAR},
+      IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
+      FROM_ID = #{fromId,jdbcType=VARCHAR},
+      STAFF_ID = #{staffId,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_STATUS = #{delStatus,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
