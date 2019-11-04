@@ -17,7 +17,7 @@
     <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
     <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="DEL_STATUS" property="delStatus" jdbcType="VARCHAR" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, CODE, NAME, ADDRESS, COORDINATE, CONTACTS, PHONE_NUM, IS_EFFECTIVE, ORDER_NUM, 
@@ -132,7 +132,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delStatus != null" >
-        #{delStatus,jdbcType=VARCHAR},
+        #{delStatus,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -182,7 +182,7 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delStatus != null" >
-        DEL_STATUS = #{delStatus,jdbcType=VARCHAR},
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

@@ -65,7 +65,7 @@ public class ApplicationResourceController extends BaseController {
                     return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
                 }
                 //获取下一个序列号
-                Long nextVal = resourceService.getNextVal();
+                String nextVal = resourceService.getNextVal();
                 applicationResource.setId(nextVal);
                 resources.add(applicationResource);
             }

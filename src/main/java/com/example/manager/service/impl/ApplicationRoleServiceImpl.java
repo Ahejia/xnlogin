@@ -28,8 +28,8 @@ public class ApplicationRoleServiceImpl extends BaseServiceImpl<ApplicationRole>
     }
 
     @Override
-    public Long getNextVal() throws Exception {
-        return roleMapper.getNextVal();
+    public String getNextVal() throws Exception {
+        return String.valueOf(roleMapper.getNextVal());
     }
 
     @Override

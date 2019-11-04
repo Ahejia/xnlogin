@@ -24,7 +24,7 @@ public interface IApplicationMessageService extends IBaseService<ApplicationMess
      * @Date 16:05 2019/10/30
      * @return java.lang.Long
      **/
-    Long getNextVal()throws Exception;
+    String getNextVal()throws Exception;
     /**
      * @Description
      * @Date 11:22 2019/10/24

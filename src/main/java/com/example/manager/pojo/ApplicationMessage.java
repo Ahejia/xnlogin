@@ -39,6 +39,11 @@ public class ApplicationMessage extends BaseEntity {
     @ApiModelProperty("主入口")
     private String mainEntry;
     /**
+     * 应用来源
+     */
+    @ApiModelProperty("应用来源")
+    private String fromWhere;
+    /**
      * 应用图标文件
      */
     @ApiModelProperty("应用图标文件")
@@ -52,12 +57,12 @@ public class ApplicationMessage extends BaseEntity {
      * 部署时间
      */
     @ApiModelProperty("部署时间")
-    private Date deplayTime;
+    private Date deploymentTime;
     /**
      * 最大并发数
      */
     @ApiModelProperty("最大并发数")
-    private Long allowConcurrency;
+    private Integer maxConcurrent;
     /**
      * 是否禁用（0启用1禁用）
      */
@@ -67,12 +72,17 @@ public class ApplicationMessage extends BaseEntity {
      * 备注
      */
     @ApiModelProperty("备注")
-    private String remark;
+    private String description;
     /**
      * 创建时间
      */
     @ApiModelProperty("创建时间")
     private Date createTime;
+    /**
+     * 最近更新时间
+     */
+    @ApiModelProperty("最近更新时间")
+    private Date renewTime;
     /**
      * 修改时间
      */
@@ -87,11 +97,14 @@ public class ApplicationMessage extends BaseEntity {
      * 显示顺序
      */
     @ApiModelProperty("显示顺序")
-    private Double sort;
+    private Integer orderNum;
+    /**应用管理员id*/
+    @ApiModelProperty("应用管理员id")
+    private String adminId;
     /**
-     * 类型
+     * 应用类型
      */
-    @ApiModelProperty("类型")
+    @ApiModelProperty("应用类型")
     private Short type;
     /**
      * 认证方式
@@ -117,7 +130,24 @@ public class ApplicationMessage extends BaseEntity {
      * 自动填表配置
      */
     @ApiModelProperty("自动填表配置")
-    private String autoConfigFile;
+    private String autoFile;
+
+    /**创建人id*/
+    @ApiModelProperty("创建人id")
+    private String createId;
+    /**创建人*/
+    @ApiModelProperty("创建人")
+    private String createName;
+    /**修改人id*/
+    @ApiModelProperty("修改人id")
+    private String updateId;
+    /**修改人*/
+    @ApiModelProperty("修改人")
+    private String updateName;
+
+    /**删除状态(0有效1删除)*/
+    @ApiModelProperty("删除状态(0有效1删除)")
+    private Short delStatus;
 
     public String getSerialNumber() {
         return serialNumber;
@@ -175,20 +205,12 @@ public class ApplicationMessage extends BaseEntity {
         this.unifyAccess = unifyAccess;
     }
 
-    public Date getDeplayTime() {
-        return deplayTime;
+    public Date getDeploymentTime() {
+        return deploymentTime;
     }
 
-    public void setDeplayTime(Date deplayTime) {
-        this.deplayTime = deplayTime;
-    }
-
-    public Long getAllowConcurrency() {
-        return allowConcurrency;
-    }
-
-    public void setAllowConcurrency(Long allowConcurrency) {
-        this.allowConcurrency = allowConcurrency;
+    public void setDeploymentTime(Date deploymentTime) {
+        this.deploymentTime = deploymentTime;
     }
 
     public Short getStatus() {
@@ -197,14 +219,6 @@ public class ApplicationMessage extends BaseEntity {
 
     public void setStatus(Short status) {
         this.status = status;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
     }
 
     public Date getCreateTime() {
@@ -229,14 +243,6 @@ public class ApplicationMessage extends BaseEntity {
 
     public void setStopTime(Date stopTime) {
         this.stopTime = stopTime;
-    }
-
-    public Double getSort() {
-        return sort;
-    }
-
-    public void setSort(Double sort) {
-        this.sort = sort;
     }
 
     public Short getType() {
@@ -279,11 +285,99 @@ public class ApplicationMessage extends BaseEntity {
         this.initScript = initScript == null ? null : initScript.trim();
     }
 
-    public String getAutoConfigFile() {
-        return autoConfigFile;
+    public String getFromWhere() {
+        return fromWhere;
     }
 
-    public void setAutoConfigFile(String autoConfigFile) {
-        this.autoConfigFile = autoConfigFile == null ? null : autoConfigFile.trim();
+    public void setFromWhere(String fromWhere) {
+        this.fromWhere = fromWhere;
+    }
+
+    public Date getRenewTime() {
+        return renewTime;
+    }
+
+    public void setRenewTime(Date renewTime) {
+        this.renewTime = renewTime;
+    }
+
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
+
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
+
+    public String getUpdateId() {
+        return updateId;
+    }
+
+    public void setUpdateId(String updateId) {
+        this.updateId = updateId;
+    }
+
+    public String getUpdateName() {
+        return updateName;
+    }
+
+    public void setUpdateName(String updateName) {
+        this.updateName = updateName;
+    }
+
+    public Short getDelStatus() {
+        return delStatus;
+    }
+
+    public void setDelStatus(Short delStatus) {
+        this.delStatus = delStatus;
+    }
+
+    public Integer getMaxConcurrent() {
+        return maxConcurrent;
+    }
+
+    public void setMaxConcurrent(Integer maxConcurrent) {
+        this.maxConcurrent = maxConcurrent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getAutoFile() {
+        return autoFile;
+    }
+
+    public void setAutoFile(String autoFile) {
+        this.autoFile = autoFile;
     }
 }

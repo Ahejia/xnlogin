@@ -4,6 +4,8 @@ import com.example.manager.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * @Author hj
  * @Description 应用资源表
@@ -11,6 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  **/
 @ApiModel("应用资源")
 public class ApplicationResource extends BaseEntity {
+
+    /**
+     * 应用id
+     */
+    @ApiModelProperty("应用编号")
+    private String applicationId;
     /**
      * 资源编码
      */
@@ -35,32 +43,50 @@ public class ApplicationResource extends BaseEntity {
      * 是否被禁用（0启用1禁用）
      */
     @ApiModelProperty("状态(0启用1禁用)")
-    private Short status;
+    private Short isEffective;
     /**
      * 备注
      */
     @ApiModelProperty("备注")
-    private String remark;
+    private String description;
     /**
      * 父id
      */
     @ApiModelProperty("父id")
-    private Long parentId;
+    private String fatherId;
     /**
      * 排序
      */
     @ApiModelProperty("排序")
-    private Double sort;
+    private Integer orderNum;
     /**
      * 是否开启授权(0未开启1开启授权)
      */
     @ApiModelProperty("是否开启授权（0未开启1开启授权）")
-    private Short authorization;
-    /**
-     * 应用id
-     */
-    @ApiModelProperty("应用编号")
-    private Long applicationId;
+    private Short isOpen;
+
+    /**创建人id*/
+    @ApiModelProperty("创建人id")
+    private String createId;
+    /**创建人*/
+    @ApiModelProperty("创建人")
+    private String createName;
+    /**创建时间*/
+    @ApiModelProperty("创建时间")
+    private Date createTime;
+    /**修改人id*/
+    @ApiModelProperty("修改人id")
+    private String updateId;
+    /**修改人*/
+    @ApiModelProperty("修改人")
+    private String updateName;
+    /**修改时间*/
+    @ApiModelProperty("修改时间")
+    private Date updateTime;
+    /**删除状态（0有效1删除）*/
+    @ApiModelProperty("删除状态(0有效1删除)")
+    private Short delStatus;
+
 
     public String getCode() {
         return code;
@@ -94,51 +120,107 @@ public class ApplicationResource extends BaseEntity {
         this.url = url == null ? null : url.trim();
     }
 
-    public Short getStatus() {
-        return status;
-    }
-
-    public void setStatus(Short status) {
-        this.status = status;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Double getSort() {
-        return sort;
-    }
-
-    public void setSort(Double sort) {
-        this.sort = sort;
-    }
-
-    public Short getAuthorization() {
-        return authorization;
-    }
-
-    public void setAuthorization(Short authorization) {
-        this.authorization = authorization;
-    }
-
-    public Long getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
+    }
+
+    public Short getIsEffective() {
+        return isEffective;
+    }
+
+    public void setIsEffective(Short isEffective) {
+        this.isEffective = isEffective;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFatherId() {
+        return fatherId;
+    }
+
+    public void setFatherId(String fatherId) {
+        this.fatherId = fatherId;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public Short getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Short isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateId() {
+        return updateId;
+    }
+
+    public void setUpdateId(String updateId) {
+        this.updateId = updateId;
+    }
+
+    public String getUpdateName() {
+        return updateName;
+    }
+
+    public void setUpdateName(String updateName) {
+        this.updateName = updateName;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Short getDelStatus() {
+        return delStatus;
+    }
+
+    public void setDelStatus(Short delStatus) {
+        this.delStatus = delStatus;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.manager.pojo;
 
 
+import com.example.manager.base.BaseEntity;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,10 +12,9 @@ import java.util.Date;
  * @Description: 机构信息
  * @Date:Create：in 2019/10/29 10:33
  */
-public class Organization implements Serializable {
+public class Organization extends BaseEntity {
 
-    /**机构id*/
-    private String id;
+
     /**机构编码*/
     private String code;
     /**机构名字*/
@@ -54,14 +55,6 @@ public class Organization implements Serializable {
     private Date updateTime;
     /**删除状态（0有效1删除）*/
     private Short delStatus;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

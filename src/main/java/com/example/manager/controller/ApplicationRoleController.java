@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,11 +81,11 @@ public class ApplicationRoleController extends BaseController {
         List<ApplicationRole>roles = new ArrayList<>();
         if(applicationRoles.size() > 0 && applicationRoles != null){
             for(ApplicationRole applicationRole: applicationRoles){
-                if(applicationRole.getApplicationId() == null){
+                if(StringUtils.isEmpty(applicationRole.getApplicationId())){
                     return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
                 }
                 //获取序列号
-                Long nextVal = roleService.getNextVal();
+                String nextVal = roleService.getNextVal();
                 applicationRole.setId(nextVal);
                 roles.add(applicationRole);
             }

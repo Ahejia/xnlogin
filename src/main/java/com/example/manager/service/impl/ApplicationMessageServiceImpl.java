@@ -28,8 +28,8 @@ public class ApplicationMessageServiceImpl extends BaseServiceImpl<ApplicationMe
     }
 
     @Override
-    public Long getNextVal() throws Exception {
-        return messageMapper.getNextVal();
+    public String getNextVal() throws Exception {
+        return String.valueOf(messageMapper.getNextVal());
     }
 
     @Override

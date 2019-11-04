@@ -2,7 +2,6 @@ package com.example.manager.pojo;
 
 import com.example.manager.base.BaseEntity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,9 +9,8 @@ import java.util.Date;
  * @Description: 顶级机构信息
  * @Date:Create：in 2019/10/29 14:10
  */
-public class TopInstitutionsInfo implements Serializable {
+public class TopInstitutionsInfo extends BaseEntity {
 
-    private String id;
     /**机构编码*/
     private String code;
     /**机构名字*/
@@ -42,15 +40,7 @@ public class TopInstitutionsInfo implements Serializable {
     /**修改时间*/
     private Date updateTime;
     /**删除状态(0有效1删除)*/
-    private String delStatus;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private Short delStatus;
 
     public String getCode() {
         return code;
@@ -164,11 +154,11 @@ public class TopInstitutionsInfo implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getDelStatus() {
+    public Short getDelStatus() {
         return delStatus;
     }
 
-    public void setDelStatus(String delStatus) {
+    public void setDelStatus(Short delStatus) {
         this.delStatus = delStatus;
     }
 }

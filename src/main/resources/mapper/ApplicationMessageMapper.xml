@@ -2,73 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.manager.dao.ApplicationMessageMapper" >
   <resultMap id="BaseResultMap" type="com.example.manager.pojo.ApplicationMessage" >
-    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
     <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
-    <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
     <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
     <result column="MAIN_ENTRY" property="mainEntry" jdbcType="VARCHAR" />
+    <result column="FROM_WHERE" property="fromWhere" jdbcType="VARCHAR" />
     <result column="APPLICATION_ICON" property="applicationIcon" jdbcType="VARCHAR" />
     <result column="UNIFY_ACCESS" property="unifyAccess" jdbcType="DECIMAL" />
-    <result column="DEPLAY_TIME" property="deplayTime" jdbcType="TIMESTAMP" />
-    <result column="ALLOW_CONCURRENCY" property="allowConcurrency" jdbcType="DECIMAL" />
+    <result column="DEPLOYMENT_TIME" property="deploymentTime" jdbcType="VARCHAR" />
+    <result column="MAX_CONCURRENT" property="maxConcurrent" jdbcType="DECIMAL" />
     <result column="STATUS" property="status" jdbcType="DECIMAL" />
-    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="RENEW_TIME" property="renewTime" jdbcType="TIMESTAMP" />
     <result column="STOP_TIME" property="stopTime" jdbcType="TIMESTAMP" />
-    <result column="SORT" property="sort" jdbcType="FLOAT" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="VARCHAR" />
     <result column="TYPE" property="type" jdbcType="DECIMAL" />
     <result column="AUTHENTICATION" property="authentication" jdbcType="DECIMAL" />
     <result column="WEB_START_URL" property="webStartUrl" jdbcType="VARCHAR" />
     <result column="COMMAND_LINE" property="commandLine" jdbcType="VARCHAR" />
     <result column="INIT_SCRIPT" property="initScript" jdbcType="VARCHAR" />
-    <result column="AUTO_CONFIG_FILE" property="autoConfigFile" jdbcType="VARCHAR" />
+    <result column="AUTO_FILE" property="autoFile" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME, VERSION, MAIN_ENTRY, APPLICATION_ICON, 
-    UNIFY_ACCESS, DEPLAY_TIME, ALLOW_CONCURRENCY, STATUS, REMARK, CREATE_TIME, UPDATE_TIME, 
-    STOP_TIME, SORT, TYPE, AUTHENTICATION, WEB_START_URL, COMMAND_LINE, INIT_SCRIPT, 
-    "AUTO_CONFIG_FILE"
+    ID, FULL_NAME, VERSION, SIMPLE_NAME, MAIN_ENTRY, FROM_WHERE, APPLICATION_ICON, UNIFY_ACCESS,
+    DEPLOYMENT_TIME, MAX_CONCURRENT, STATUS, DESCRIPTION, RENEW_TIME, STOP_TIME, ORDER_NUM,
+    ADMIN_ID, TYPE, AUTHENTICATION, WEB_START_URL, COMMAND_LINE, INIT_SCRIPT, AUTO_FILE,
+    CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS,
+    SERIAL_NUMBER
   </sql>
-  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from PLATFORM_APPLICATION_MESSAGE
-    where ID = #{id,jdbcType=DECIMAL}
+    from APPLICATION_INFO
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
   </select>
 
   <select id="getAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from PLATFORM_APPLICATION_MESSAGE
+    from APPLICATION_INFO where DEL_STATUS = 0
   </select>
-  <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from PLATFORM_APPLICATION_MESSAGE
-    where ID = #{id,jdbcType=DECIMAL}
+  <delete id="deleteById" parameterType="java.lang.String" >
+    update APPLICATION_INFO set DEL_STATUS = 1
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.example.manager.pojo.ApplicationMessage" >
-    insert into PLATFORM_APPLICATION_MESSAGE
+  <insert id="insert" parameterType="com.example.manager.pojo.ApplicationMessage" keyProperty="id" useGeneratedKeys="true">
+    insert into APPLICATION_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="serialNumber != null" >
-        SERIAL_NUMBER,
-      </if>
       <if test="fullName != null" >
         FULL_NAME,
-      </if>
-      <if test="simpleName != null" >
-        SIMPLE_NAME,
       </if>
       <if test="version != null" >
         VERSION,
       </if>
+      <if test="simpleName != null" >
+        SIMPLE_NAME,
+      </if>
       <if test="mainEntry != null" >
         MAIN_ENTRY,
+      </if>
+      <if test="fromWhere != null" >
+        FROM_WHERE,
       </if>
       <if test="applicationIcon != null" >
         APPLICATION_ICON,
@@ -76,29 +85,29 @@
       <if test="unifyAccess != null" >
         UNIFY_ACCESS,
       </if>
-      <if test="deplayTime != null" >
-        DEPLAY_TIME,
+      <if test="deploymentTime != null" >
+        DEPLOYMENT_TIME,
       </if>
-      <if test="allowConcurrency != null" >
-        ALLOW_CONCURRENCY,
+      <if test="maxConcurrent != null" >
+        MAX_CONCURRENT,
       </if>
       <if test="status != null" >
         STATUS,
       </if>
-      <if test="remark != null" >
-        REMARK,
+      <if test="description != null" >
+        DESCRIPTION,
       </if>
-      <if test="createTime != null" >
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME,
+      <if test="renewTime != null" >
+        RENEW_TIME,
       </if>
       <if test="stopTime != null" >
         STOP_TIME,
       </if>
-      <if test="sort != null" >
-        SORT,
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
       </if>
       <if test="type != null" >
         TYPE,
@@ -115,28 +124,52 @@
       <if test="initScript != null" >
         INIT_SCRIPT,
       </if>
-      <if test="autoConfigFile != null" >
-        "AUTO_CONFIG_FILE",
+      <if test="autoFile != null" >
+        AUTO_FILE,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=DECIMAL},
-      </if>
-      <if test="serialNumber != null" >
-        #{serialNumber,jdbcType=VARCHAR},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="fullName != null" >
         #{fullName,jdbcType=VARCHAR},
       </if>
-      <if test="simpleName != null" >
-        #{simpleName,jdbcType=VARCHAR},
-      </if>
       <if test="version != null" >
         #{version,jdbcType=VARCHAR},
       </if>
+      <if test="simpleName != null" >
+        #{simpleName,jdbcType=VARCHAR},
+      </if>
       <if test="mainEntry != null" >
         #{mainEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="fromWhere != null" >
+        #{fromWhere,jdbcType=VARCHAR},
       </if>
       <if test="applicationIcon != null" >
         #{applicationIcon,jdbcType=VARCHAR},
@@ -144,29 +177,29 @@
       <if test="unifyAccess != null" >
         #{unifyAccess,jdbcType=DECIMAL},
       </if>
-      <if test="deplayTime != null" >
-        #{deplayTime,jdbcType=TIMESTAMP},
+      <if test="deploymentTime != null" >
+        #{deploymentTime,jdbcType=VARCHAR},
       </if>
-      <if test="allowConcurrency != null" >
-        #{allowConcurrency,jdbcType=DECIMAL},
+      <if test="maxConcurrent != null" >
+        #{maxConcurrent,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
         #{status,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
+      <if test="renewTime != null" >
+        #{renewTime,jdbcType=TIMESTAMP},
       </if>
       <if test="stopTime != null" >
         #{stopTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=FLOAT},
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         #{type,jdbcType=DECIMAL},
@@ -183,28 +216,52 @@
       <if test="initScript != null" >
         #{initScript,jdbcType=VARCHAR},
       </if>
-      <if test="autoConfigFile != null" >
-        #{autoConfigFile,jdbcType=VARCHAR},
+      <if test="autoFile != null" >
+        #{autoFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="update" parameterType="com.example.manager.pojo.ApplicationMessage" >
-    update PLATFORM_APPLICATION_MESSAGE
+    update APPLICATION_INFO
     <set >
-      <if test="serialNumber != null" >
-        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
-      </if>
       <if test="fullName != null" >
         FULL_NAME = #{fullName,jdbcType=VARCHAR},
-      </if>
-      <if test="simpleName != null" >
-        SIMPLE_NAME = #{simpleName,jdbcType=VARCHAR},
       </if>
       <if test="version != null" >
         VERSION = #{version,jdbcType=VARCHAR},
       </if>
+      <if test="simpleName != null" >
+        SIMPLE_NAME = #{simpleName,jdbcType=VARCHAR},
+      </if>
       <if test="mainEntry != null" >
         MAIN_ENTRY = #{mainEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="fromWhere != null" >
+        FROM_WHERE = #{fromWhere,jdbcType=VARCHAR},
       </if>
       <if test="applicationIcon != null" >
         APPLICATION_ICON = #{applicationIcon,jdbcType=VARCHAR},
@@ -212,29 +269,29 @@
       <if test="unifyAccess != null" >
         UNIFY_ACCESS = #{unifyAccess,jdbcType=DECIMAL},
       </if>
-      <if test="deplayTime != null" >
-        DEPLAY_TIME = #{deplayTime,jdbcType=TIMESTAMP},
+      <if test="deploymentTime != null" >
+        DEPLOYMENT_TIME = #{deploymentTime,jdbcType=VARCHAR},
       </if>
-      <if test="allowConcurrency != null" >
-        ALLOW_CONCURRENCY = #{allowConcurrency,jdbcType=DECIMAL},
+      <if test="maxConcurrent != null" >
+        MAX_CONCURRENT = #{maxConcurrent,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
         STATUS = #{status,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null" >
-        REMARK = #{remark,jdbcType=VARCHAR},
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="renewTime != null" >
+        RENEW_TIME = #{renewTime,jdbcType=TIMESTAMP},
       </if>
       <if test="stopTime != null" >
         STOP_TIME = #{stopTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sort != null" >
-        SORT = #{sort,jdbcType=FLOAT},
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         TYPE = #{type,jdbcType=DECIMAL},
@@ -251,11 +308,35 @@
       <if test="initScript != null" >
         INIT_SCRIPT = #{initScript,jdbcType=VARCHAR},
       </if>
-      <if test="autoConfigFile != null" >
-        "AUTO_CONFIG_FILE" = #{autoConfigFile,jdbcType=VARCHAR},
+      <if test="autoFile != null" >
+        AUTO_FILE = #{autoFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
 
   <!--新增sql-->
@@ -274,25 +355,25 @@
     SELECT *
     FROM (SELECT tt.*, ROWNUM AS rowno
     FROM (  SELECT t.<include refid="Base_Column_List"/>
-    FROM PLATFORM_APPLICATION_MESSAGE t
-    ORDER BY SORT DESC) tt
+    FROM APPLICATION_INFO t where DEL_STATUS = 0
+    ORDER BY ORDER_NUM DESC) tt
     WHERE ROWNUM &lt;= #{pageMaxNum}) table_alias
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
   <!--查询总的数量-->
   <select id="getCount" resultType="java.lang.Integer">
-    select count(id) from PLATFORM_APPLICATION_MESSAGE
+    select count(id) from APPLICATION_INFO where DEL_STATUS = 0
   </select>
 
   <!--删除关联表中数据-->
-  <delete id="deleteByApplicationId" parameterType="java.lang.Long">
-    delete from PLATFORM__MESSAGE_RESOUCE_ROLE
+  <delete id="deleteByApplicationId" parameterType="java.lang.String">
+    update APPLICATION_ROLE_RESOURCES set DEL_STATUS = 1
     where APPLICATION_ID = #{applicationId}
   </delete>
 
   <resultMap id="BaseResultMap1" type="com.example.manager.pojo.ApplicationMessage" >
-    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
     <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
     <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
@@ -303,7 +384,7 @@
     <!--获取所有应用的名称与编号-->
     <select id="getAllMessageName" resultMap="BaseResultMap1">
       select <include refid="Base_Column_List1"/>
-      from PLATFORM_APPLICATION_MESSAGE
+      from APPLICATION_INFO and DEL_STATUS = 0
     </select>
 
   <!--获取当前的序列号-->

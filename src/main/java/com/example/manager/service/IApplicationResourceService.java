@@ -23,7 +23,7 @@ public interface IApplicationResourceService extends IBaseService<ApplicationRes
      * @Date 16:05 2019/10/30
      * @return java.lang.Long
     **/
-    Long getNextVal()throws Exception;
+    String getNextVal()throws Exception;
 
     /**
      * @Description

@@ -28,8 +28,8 @@ public class ApplicationResourceServiceImpl extends BaseServiceImpl<ApplicationR
     }
 
     @Override
-    public Long getNextVal() throws Exception {
-        return resourceMapper.getNextVal();
+    public String getNextVal() throws Exception {
+        return String.valueOf(resourceMapper.getNextVal());
     }
 
     @Override

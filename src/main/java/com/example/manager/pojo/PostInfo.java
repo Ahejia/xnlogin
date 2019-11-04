@@ -10,9 +10,8 @@ import java.util.Date;
  * @Description: 岗位
  * @Date:Create：in 2019/10/29 10:36
  */
-public class PostInfo implements Serializable {
-    /**岗位id*/
-    private String id;
+public class PostInfo extends BaseEntity {
+
     /**名称*/
     private String name;
     /**是否有效（0启用1禁用）*/
@@ -27,22 +26,14 @@ public class PostInfo implements Serializable {
     private String createName;
     /**创建时间*/
     private Date createTime;
-    /**创建人id*/
+    /**修改人id*/
     private String updateId;
-    /**创建人*/
+    /**修改人*/
     private String updateName;
     /**修改时间*/
     private Date updateTime;
     /**删除状态（0有效1删除）*/
     private Short delStatus;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

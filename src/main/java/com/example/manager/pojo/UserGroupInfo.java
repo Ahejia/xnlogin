@@ -10,9 +10,8 @@ import java.util.Date;
  * @Description: 用户组信息表
  * @Date:Create：in 2019/10/30 10:40
  */
-public class UserGroupInfo implements Serializable {
+public class UserGroupInfo extends BaseEntity {
 
-    private String id;
     /**用户组代码code*/
     private String code;
     /**用户组名称*/
@@ -36,13 +35,6 @@ public class UserGroupInfo implements Serializable {
     /**删除状态(0有效1删除)*/
     private Short delStatus;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

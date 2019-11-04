@@ -2,47 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.manager.dao.ApplicationResourceMapper" >
   <resultMap id="BaseResultMap" type="com.example.manager.pojo.ApplicationResource" >
-    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APPLICATION_ID" property="applicationId" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="TYPE" property="type" jdbcType="VARCHAR" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
-    <result column="STATUS" property="status" jdbcType="DECIMAL" />
-    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
-    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
-    <result column="SORT" property="sort" jdbcType="FLOAT" />
-    <result column="AUTHORIZATION" property="authorization" jdbcType="DECIMAL" />
-    <result column="APPLICATION_ID" property="applicationId" jdbcType="DECIMAL" />
+    <result column="FATHER_ID" property="fatherId" jdbcType="VARCHAR" />
+    <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="IS_OPEN" property="isOpen" jdbcType="DECIMAL" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, CODE, NAME, TYPE, URL, STATUS, REMARK,
-    PARENT_ID, SORT, AUTHORIZATION, APPLICATION_ID
+    ID, APPLICATION_ID, CODE, NAME, TYPE, URL, FATHER_ID, IS_EFFECTIVE, DESCRIPTION,
+    ORDER_NUM, IS_OPEN, CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME,
+    UPDATE_TIME, DEL_STATUS
   </sql>
 
-  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
-    from PLATFORM_APPLICATION_RESOURCE
-    where ID = #{id,jdbcType=DECIMAL}
+    from APPLICATION_RESOURCES
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
   </select>
 
   <select id="getAll" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from PLATFORM_APPLICATION_RESOURCE
+    from APPLICATION_RESOURCES where DEL_STATUS = 0
   </select>
 
-  <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from PLATFORM_APPLICATION_RESOURCE
-    where ID = #{id,jdbcType=DECIMAL}
+  <delete id="deleteById" parameterType="java.lang.String" >
+    update APPLICATION_RESOURCES set DEL_STATUS = 1
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.example.manager.pojo.ApplicationResource" >
-    insert into PLATFORM_APPLICATION_RESOURCE
+  <insert id="insertSelective" parameterType="com.example.manager.pojo.ApplicationResource" keyProperty="id" useGeneratedKeys="true">
+    insert into APPLICATION_RESOURCES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
+      </if>
+      <if test="applicationId != null" >
+        APPLICATION_ID,
       </if>
       <if test="code != null" >
         CODE,
@@ -56,28 +67,49 @@
       <if test="url != null" >
         URL,
       </if>
-      <if test="status != null" >
-        STATUS,
+      <if test="fatherId != null" >
+        FATHER_ID,
       </if>
-      <if test="remark != null" >
-        REMARK,
+      <if test="isEffective != null" >
+        IS_EFFECTIVE,
       </if>
-      <if test="parentId != null" >
-        PARENT_ID,
+      <if test="description != null" >
+        DESCRIPTION,
       </if>
-      <if test="sort != null" >
-        SORT,
+      <if test="orderNum != null" >
+        ORDER_NUM,
       </if>
-      <if test="authorization != null" >
-        AUTHORIZATION,
+      <if test="isOpen != null" >
+        IS_OPEN,
       </if>
-      <if test="applicationId != null" >
-        APPLICATION_ID,
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=DECIMAL},
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationId != null" >
+        #{applicationId,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
         #{code,jdbcType=VARCHAR},
@@ -91,30 +123,50 @@
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=DECIMAL},
+      <if test="fatherId != null" >
+        #{fatherId,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="isEffective != null" >
+        #{isEffective,jdbcType=DECIMAL},
       </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=DECIMAL},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=FLOAT},
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=DECIMAL},
       </if>
-      <if test="authorization != null" >
-        #{authorization,jdbcType=DECIMAL},
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=DECIMAL},
       </if>
-      <if test="applicationId != null" >
-        #{applicationId,jdbcType=DECIMAL},
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-
   <update id="update" parameterType="com.example.manager.pojo.ApplicationResource" >
-    update PLATFORM_APPLICATION_RESOURCE
-    <set>
+    update APPLICATION_RESOURCES
+    <set >
+      <if test="applicationId != null" >
+        APPLICATION_ID = #{applicationId,jdbcType=VARCHAR},
+      </if>
       <if test="code != null" >
         CODE = #{code,jdbcType=VARCHAR},
       </if>
@@ -127,34 +179,53 @@
       <if test="url != null" >
         URL = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=DECIMAL},
+      <if test="fatherId != null" >
+        FATHER_ID = #{fatherId,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        REMARK = #{remark,jdbcType=VARCHAR},
+      <if test="isEffective != null" >
+        IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
       </if>
-      <if test="parentId != null" >
-        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        SORT = #{sort,jdbcType=FLOAT},
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
       </if>
-      <if test="authorization != null" >
-        AUTHORIZATION = #{authorization,jdbcType=DECIMAL},
+      <if test="isOpen != null" >
+        IS_OPEN = #{isOpen,jdbcType=DECIMAL},
       </if>
-      <if test="applicationId != null" >
-        APPLICATION_ID = #{applicationId,jdbcType=DECIMAL},
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS = #{delStatus,jdbcType=DECIMAL},
       </if>
     </set>
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
 
   <!--新增sql-->
   <!--根据编号禁用资源-->
   <update id="hiddenById" parameterType="com.example.manager.pojo.ApplicationResource">
-    update PLATFORM_APPLICATION_RESOURCE
+    update APPLICATION_RESOURCES
     <set>
-      <if test="status == 1">status = 0</if>
-      <if test="status == 0">status = 1</if>
+      <if test="isEffective == 1">isEffective = 0</if>
+      <if test="isEffective == 0">isEffective = 1</if>
     </set>
      where id = #{id}
   </update>
@@ -164,32 +235,32 @@
     SELECT *
     FROM (SELECT tt.*, ROWNUM AS rowno
     FROM (  SELECT t.<include refid="Base_Column_List"/>
-    FROM PLATFORM_APPLICATION_RESOURCE t
-    ORDER BY SORT DESC) tt
+    FROM APPLICATION_RESOURCES t
+    ORDER BY ORDER_NUM DESC) tt
     WHERE ROWNUM &lt;= #{pageMaxNum}) table_alias
     WHERE table_alias.rowno &gt; #{pageMinNum}
   </select>
 
   <!--查询总的数量-->
   <select id="getCount" resultType="java.lang.Integer">
-    select count(id) from PLATFORM_APPLICATION_RESOURCE
+    select count(id) from APPLICATION_RESOURCE
   </select>
 
   <!--把应用资源中的应用编号置为0-->
-  <update id="updateApplicationId" parameterType="java.lang.Long">
-    update PLATFORM_APPLICATION_RESOURCE set APPLICATION_ID = 0
+  <update id="updateApplicationId" parameterType="java.lang.String">
+    update APPLICATION_RESOURCES set APPLICATION_ID = 0
     where APPLICATION_ID = #{applicationId}
   </update>
 
-  <!--把资源中的父id置为0-->
-  <update id="updateParentId" parameterType="java.lang.Long">
-    update PLATFORM_APPLICATION_RESOURCE set PARENT_ID = 0
-    where PARENT_ID = #{id}
+  <!--删除父id的资源-->
+  <update id="updateParentId" parameterType="java.lang.String">
+    update APPLICATION_ROLE_RESOURCES set DEL_STATUS = 1
+    where FATHER_ID = #{id}
   </update>
 
   <!--删除关联表-->
-  <delete id="deleteByResourceId" parameterType="java.lang.Long">
-    delete from PLATFORM__MESSAGE_RESOUCE_ROLE
+  <delete id="deleteByResourceId" parameterType="java.lang.String">
+    update APPLICATION_ROLE_RESOURCES set DEL_STATUS = 1
     where RESOURCE_ID = #{resourceId}
   </delete>
   <!--获取当前的序列号-->

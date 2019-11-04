@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,15 +59,17 @@ public class ApplicationMessageController extends BaseController {
     @PostMapping(value = "/message/save")
     @ApiOperation(value = "保存",notes = "保存应用信息")
     public CommonResult save(@RequestBody @ApiParam(name = "应用信息对象",value = "json",required = true) List<ApplicationMessage> applicationMessages)throws Exception{
+        List<String> list = new ArrayList<>();
         if(applicationMessages.size() > 0 && applicationMessages != null){
             for(ApplicationMessage applicationMessage : applicationMessages){
                 //获取序列号
-                Long nextVal = messageService.getNextVal();
+                String nextVal = messageService.getNextVal();
                 applicationMessage.setId(nextVal);
                 logger.info("---保存应用信息---");
                 messageService.save(applicationMessage);
+                list.add(nextVal);
             }
-            return CommonResult.success().setMsg("保存成功");
+            return CommonResult.success().setMsg("保存成功").addResult("ids",list);
         }
         return CommonResult.failed(MessageCodeEnum.NO_DATA);
 
@@ -107,7 +111,7 @@ public class ApplicationMessageController extends BaseController {
 
     /**
      * @Author hj
-     * @Description 删除应用
+     * @Description 删除应用 TODO
      * @Date 17:13 2019/10/23
      * @Param [id] 应用id
     **/
