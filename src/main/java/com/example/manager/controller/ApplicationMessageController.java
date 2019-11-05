@@ -8,6 +8,8 @@ import com.example.manager.pojo.ApplicationMessage;
 import com.example.manager.service.IApplicationMessageService;
 import com.example.manager.service.IApplicationResourceService;
 import com.example.manager.service.IApplicationRoleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,10 +151,14 @@ public class ApplicationMessageController extends BaseController {
     @GetMapping("/message/get/page")
     public CommonResult getPage(@RequestParam(value = "pageSize",required = false,defaultValue = "1") Integer pageSize,
                                 @RequestParam(value = "pageNum",required = false,defaultValue = "10") Integer pageNum)throws Exception{
-        logger.info("---分页查询---");
-        List<ApplicationMessage> messages = messageService.getPage(pageSize, pageNum);
-        Integer count = messageService.getCount();
-        return CommonResult.success().setMsg("查询成功").addResult("list",messages).addResult("count",count);
+        PageHelper.startPage(pageSize,pageNum);
+        List<ApplicationMessage> list = messageService.getAll();
+        PageInfo<ApplicationMessage> pageInfo = new PageInfo<>(list);
+        return CommonResult.success().addResult("list",pageInfo);
+//        logger.info("---分页查询---");
+//        List<ApplicationMessage> messages = messageService.getPage(pageSize, pageNum);
+//        Integer count = messageService.getCount();
+//        return CommonResult.success().setMsg("查询成功").addResult("list",messages).addResult("count",count);
     }
 
     /**
