@@ -27,23 +27,32 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, ORGANIZATION_ID, ACCOUNT_NUM, ACCOUNT_PWD, HEAD_PICTURE, SEX, AGE, ID_CARD_NUM, 
-    FULL_NAME, BIRTHDAY, PHONE_NUM, EMAIL, AUTHORIZATION_SYSTEM, IS_EFFECTIVE, FROM_ID, 
-    STAFF_ID, CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, 
+    ID, ORGANIZATION_ID, ACCOUNT_NUM, ACCOUNT_PWD, HEAD_PICTURE, SEX, AGE, ID_CARD_NUM,
+    FULL_NAME, BIRTHDAY, PHONE_NUM, EMAIL, AUTHORIZATION_SYSTEM, IS_EFFECTIVE, FROM_ID,
+    STAFF_ID, CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME,
     DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from USER_INFO
-    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
+  </select>
+  <select id="getAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where DEL_STATUS = 0
   </select>
   <delete id="deleteById" parameterType="java.lang.String" >
-    update USER_INFO set DEL_STATUS = `1`
+    update USER_INFO set DEL_STATUS = 1
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insert" parameterType="com.example.manager.pojo.UserInfo" keyProperty="ID" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+      SELECT USER_INFO_SQE.nextval AS id FROM dual
+    </selectKey>
     insert into USER_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -188,7 +197,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.manager.pojo.UserInfo" >
+  <update id="update" parameterType="com.example.manager.pojo.UserInfo" >
     update USER_INFO
     <set >
       <if test="organizationId != null" >
@@ -260,30 +269,5 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.manager.pojo.UserInfo" >
-    update USER_INFO
-    set ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
-      ACCOUNT_NUM = #{accountNum,jdbcType=VARCHAR},
-      ACCOUNT_PWD = #{accountPwd,jdbcType=VARCHAR},
-      HEAD_PICTURE = #{headPicture,jdbcType=VARCHAR},
-      SEX = #{sex,jdbcType=DECIMAL},
-      AGE = #{age,jdbcType=DECIMAL},
-      ID_CARD_NUM = #{idCardNum,jdbcType=VARCHAR},
-      FULL_NAME = #{fullName,jdbcType=VARCHAR},
-      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
-      PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      AUTHORIZATION_SYSTEM = #{authorizationSystem,jdbcType=VARCHAR},
-      IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
-      FROM_ID = #{fromId,jdbcType=VARCHAR},
-      STAFF_ID = #{staffId,jdbcType=VARCHAR},
-      CREATE_ID = #{createId,jdbcType=VARCHAR},
-      CREATE_NAME = #{createName,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
-      UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      DEL_STATUS = #{delStatus,jdbcType=DECIMAL}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+
 </mapper>

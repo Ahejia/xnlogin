@@ -25,21 +25,30 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, CODE, NAME, FULL_NAME, EASY_NAME, ADDRESS, COORDINATE, PHONE_NUM, CONTACTS, IS_EFFECTIVE, 
-    FATHER_ID, TYPE_CODE, DESCRIPTION, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME, 
+    ID, CODE, NAME, FULL_NAME, EASY_NAME, ADDRESS, COORDINATE, PHONE_NUM, CONTACTS, IS_EFFECTIVE,
+    FATHER_ID, TYPE_CODE, DESCRIPTION, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME,
     UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from ORGANIZATION
-    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
+  </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ORGANIZATION
+    where DEL_STATUS = 0
   </select>
   <update id="deleteById" parameterType="java.lang.String" >
-    update ORGANIZATION set DEL_STATUS = `1` where ID = #{id,jdbcType=VARCHAR}
+    update ORGANIZATION set DEL_STATUS = 1 where ID = #{id,jdbcType=VARCHAR}
   </update>
 
   <insert id="insert" parameterType="com.example.manager.pojo.Organization" keyProperty="ID" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+      SELECT ORGANIZATION_SQE.nextval AS id FROM dual
+    </selectKey>
     insert into ORGANIZATION
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

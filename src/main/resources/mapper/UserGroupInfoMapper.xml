@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.manager.dao.TopInstitutionsInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.example.manager.pojo.TopInstitutionsInfo" >
+<mapper namespace="com.example.manager.dao.UserGroupInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.UserGroupInfo" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
-    <result column="COORDINATE" property="coordinate" jdbcType="VARCHAR" />
-    <result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
-    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
     <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
     <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
     <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
@@ -20,30 +17,32 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, CODE, NAME, ADDRESS, COORDINATE, CONTACTS, PHONE_NUM, IS_EFFECTIVE, ORDER_NUM,
-    CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
+    ID, CODE, NAME, DESCRIPTION, IS_EFFECTIVE, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME, 
+    UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
+    select 
     <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
+    from USER_GROUP_INFO
     where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
   </select>
+
   <select id="getAll" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
-    where DEL_STATUS = 0
+    from USER_GROUP_INFO
+    where  DEL_STATUS = 0
   </select>
   <delete id="deleteById" parameterType="java.lang.String" >
-    update TOP_INSTITUTIONS_INFO set DEL_STATUS = 1 where ID = #{id,jdbcType=VARCHAR}
+    update USER_GROUP_INFO set DEL_STATUS = 1
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.example.manager.pojo.TopInstitutionsInfo" keyProperty="ID" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.manager.pojo.UserGroupInfo" >
     <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
-      SELECT TOP_INSTITUTIONS_INFO_SQE.nextval AS id FROM dual
+      SELECT USER_GROUP_INFO_SQE.nextval AS id FROM dual
     </selectKey>
-    insert into TOP_INSTITUTIONS_INFO
+    insert into USER_GROUP_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -54,17 +53,8 @@
       <if test="name != null" >
         NAME,
       </if>
-      <if test="address != null" >
-        ADDRESS,
-      </if>
-      <if test="coordinate != null" >
-        COORDINATE,
-      </if>
-      <if test="contacts != null" >
-        CONTACTS,
-      </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM,
+      <if test="description != null" >
+        DESCRIPTION,
       </if>
       <if test="isEffective != null" >
         IS_EFFECTIVE,
@@ -104,17 +94,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="coordinate != null" >
-        #{coordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="contacts != null" >
-        #{contacts,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNum != null" >
-        #{phoneNum,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="isEffective != null" >
         #{isEffective,jdbcType=DECIMAL},
@@ -145,8 +126,8 @@
       </if>
     </trim>
   </insert>
-  <update id="update" parameterType="com.example.manager.pojo.TopInstitutionsInfo" >
-    update TOP_INSTITUTIONS_INFO
+  <update id="update" parameterType="com.example.manager.pojo.UserGroupInfo" >
+    update USER_GROUP_INFO
     <set >
       <if test="code != null" >
         CODE = #{code,jdbcType=VARCHAR},
@@ -154,17 +135,8 @@
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        ADDRESS = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="coordinate != null" >
-        COORDINATE = #{coordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="contacts != null" >
-        CONTACTS = #{contacts,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
       <if test="isEffective != null" >
         IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},

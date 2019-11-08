@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.UserApplicationInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.UserApplicationInfo" >
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="INDEX_NUM" property="indexNum" jdbcType="VARCHAR" />
+    <result column="APPLICATION_ID" property="applicationId" jdbcType="VARCHAR" />
+    <result column="ROUTE" property="route" jdbcType="VARCHAR" />
+    <result column="CATALOG" property="catalog" jdbcType="VARCHAR" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="LOGIN_PWD" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="WEB_URL" property="webUrl" jdbcType="VARCHAR" />
+    <result column="LOCAL_COMMAND" property="localCommand" jdbcType="VARCHAR" />
+    <result column="APPLICATION_TYPE" property="applicationType" jdbcType="VARCHAR" />
+    <result column="AUTHENTICATION_METHOD" property="authenticationMethod" jdbcType="DECIMAL" />
+    <result column="APPLICATION_MAIN" property="applicationMain" jdbcType="VARCHAR" />
+    <result column="AUTO_FILE" property="autoFile" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.UserApplicationInfo" >
+    insert into USER_APPLICATION_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="indexNum != null" >
+        INDEX_NUM,
+      </if>
+      <if test="applicationId != null" >
+        APPLICATION_ID,
+      </if>
+      <if test="route != null" >
+        ROUTE,
+      </if>
+      <if test="catalog != null" >
+        CATALOG,
+      </if>
+      <if test="loginAccount != null" >
+        LOGIN_ACCOUNT,
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD,
+      </if>
+      <if test="webUrl != null" >
+        WEB_URL,
+      </if>
+      <if test="localCommand != null" >
+        LOCAL_COMMAND,
+      </if>
+      <if test="applicationType != null" >
+        APPLICATION_TYPE,
+      </if>
+      <if test="authenticationMethod != null" >
+        AUTHENTICATION_METHOD,
+      </if>
+      <if test="applicationMain != null" >
+        APPLICATION_MAIN,
+      </if>
+      <if test="autoFile != null" >
+        AUTO_FILE,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="indexNum != null" >
+        #{indexNum,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationId != null" >
+        #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="catalog != null" >
+        #{catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="localCommand != null" >
+        #{localCommand,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationType != null" >
+        #{applicationType,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationMethod != null" >
+        #{authenticationMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationMain != null" >
+        #{applicationMain,jdbcType=VARCHAR},
+      </if>
+      <if test="autoFile != null" >
+        #{autoFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

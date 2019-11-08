@@ -16,20 +16,29 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, TYPE_NUM, NAME, IS_EFFECTIVE, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME, 
+    ID, TYPE_NUM, NAME, IS_EFFECTIVE, ORDER_NUM, CREATE_ID, CREATE_NAME, CREATE_TIME,
     UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from ORGANIZATION_TYPE_CODE
-    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = `0`
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
+  </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ORGANIZATION_TYPE_CODE
+    where DEL_STATUS = 0
   </select>
   <delete id="deleteById" parameterType="java.lang.String" >
-    update ORGANIZATION_TYPE_CODE set DEL_STATUS = `1` where ID = #{id,jdbcType=VARCHAR}
+    update ORGANIZATION_TYPE_CODE set DEL_STATUS = 1 where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insert" parameterType="com.example.manager.pojo.OrganizationTypeCode" keyProperty="ID" useGeneratedKeys="true" >
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+      SELECT ORGANIZATION_TYPE_CODE_SQE.nextval AS id FROM dual
+    </selectKey>
     insert into ORGANIZATION_TYPE_CODE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

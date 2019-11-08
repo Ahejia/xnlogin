@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.manager.dao.TopInstitutionsInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.example.manager.pojo.TopInstitutionsInfo" >
+<mapper namespace="com.example.manager.dao.JobNumberAssignmentMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.JobNumberAssignment" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="CODE" property="code" jdbcType="VARCHAR" />
-    <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
-    <result column="COORDINATE" property="coordinate" jdbcType="VARCHAR" />
-    <result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
-    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
-    <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
+    <result column="JOB_NUM" property="jobNum" jdbcType="VARCHAR" />
+    <result column="STAFF_MEMBER_ID" property="staffMemberId" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
     <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
     <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
     <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
@@ -20,54 +17,46 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, CODE, NAME, ADDRESS, COORDINATE, CONTACTS, PHONE_NUM, IS_EFFECTIVE, ORDER_NUM,
-    CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
+    ID, JOB_NUM, STAFF_MEMBER_ID, START_TIME, END_TIME, ORDER_NUM, CREATE_ID, CREATE_NAME, 
+    CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
+    select 
     <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
+    from JOB_NUMBER_ASSIGNMENT
     where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
   </select>
   <select id="getAll" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
-    where DEL_STATUS = 0
-  </select>
+  select
+  <include refid="Base_Column_List" />
+  from JOB_NUMBER_ASSIGNMENT
+  where DEL_STATUS = 0
+</select>
   <delete id="deleteById" parameterType="java.lang.String" >
-    update TOP_INSTITUTIONS_INFO set DEL_STATUS = 1 where ID = #{id,jdbcType=VARCHAR}
+    update JOB_NUMBER_ASSIGNMENT set DEL_STATUS = 1
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.example.manager.pojo.TopInstitutionsInfo" keyProperty="ID" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.manager.pojo.JobNumberAssignment" >
     <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
-      SELECT TOP_INSTITUTIONS_INFO_SQE.nextval AS id FROM dual
+      SELECT JOB_NUMBER_ASSIGNMENT_SQE.nextval AS id FROM dual
     </selectKey>
-    insert into TOP_INSTITUTIONS_INFO
+    insert into JOB_NUMBER_ASSIGNMENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="code != null" >
-        CODE,
+      <if test="jobNum != null" >
+        JOB_NUM,
       </if>
-      <if test="name != null" >
-        NAME,
+      <if test="staffMemberId != null" >
+        STAFF_MEMBER_ID,
       </if>
-      <if test="address != null" >
-        ADDRESS,
+      <if test="startTime != null" >
+        START_TIME,
       </if>
-      <if test="coordinate != null" >
-        COORDINATE,
-      </if>
-      <if test="contacts != null" >
-        CONTACTS,
-      </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM,
-      </if>
-      <if test="isEffective != null" >
-        IS_EFFECTIVE,
+      <if test="endTime != null" >
+        END_TIME,
       </if>
       <if test="orderNum != null" >
         ORDER_NUM,
@@ -98,26 +87,17 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+      <if test="jobNum != null" >
+        #{jobNum,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="staffMemberId != null" >
+        #{staffMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="coordinate != null" >
-        #{coordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="contacts != null" >
-        #{contacts,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNum != null" >
-        #{phoneNum,jdbcType=VARCHAR},
-      </if>
-      <if test="isEffective != null" >
-        #{isEffective,jdbcType=DECIMAL},
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderNum != null" >
         #{orderNum,jdbcType=DECIMAL},
@@ -145,29 +125,20 @@
       </if>
     </trim>
   </insert>
-  <update id="update" parameterType="com.example.manager.pojo.TopInstitutionsInfo" >
-    update TOP_INSTITUTIONS_INFO
+  <update id="update" parameterType="com.example.manager.pojo.JobNumberAssignment" >
+    update JOB_NUMBER_ASSIGNMENT
     <set >
-      <if test="code != null" >
-        CODE = #{code,jdbcType=VARCHAR},
+      <if test="jobNum != null" >
+        JOB_NUM = #{jobNum,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        NAME = #{name,jdbcType=VARCHAR},
+      <if test="staffMemberId != null" >
+        STAFF_MEMBER_ID = #{staffMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        ADDRESS = #{address,jdbcType=VARCHAR},
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="coordinate != null" >
-        COORDINATE = #{coordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="contacts != null" >
-        CONTACTS = #{contacts,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
-      </if>
-      <if test="isEffective != null" >
-        IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderNum != null" >
         ORDER_NUM = #{orderNum,jdbcType=DECIMAL},

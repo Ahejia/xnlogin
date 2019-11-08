@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.manager.dao.StaffMemberContactInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.StaffMemberContactInfo" >
+    <result column="STAFF_MEMBER_ID" property="staffMemberId" jdbcType="VARCHAR" />
+    <result column="INDEX_NUM" property="indexNum" jdbcType="VARCHAR" />
+    <result column="CONTACT_CODE" property="contactCode" jdbcType="VARCHAR" />
+    <result column="CONTACT_MODE" property="contactMode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.example.manager.pojo.StaffMemberContactInfo" >
+    insert into STAFF_MEMBER_CONTACT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffMemberId != null" >
+        STAFF_MEMBER_ID,
+      </if>
+      <if test="indexNum != null" >
+        INDEX_NUM,
+      </if>
+      <if test="contactCode != null" >
+        CONTACT_CODE,
+      </if>
+      <if test="contactMode != null" >
+        CONTACT_MODE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="delStatus != null" >
+        DEL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffMemberId != null" >
+        #{staffMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="indexNum != null" >
+        #{indexNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contactCode != null" >
+        #{contactCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMode != null" >
+        #{contactMode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delStatus != null" >
+        #{delStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

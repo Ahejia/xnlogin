@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.manager.dao.TopInstitutionsInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.example.manager.pojo.TopInstitutionsInfo" >
+<mapper namespace="com.example.manager.dao.StaffMemberInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.manager.pojo.StaffMemberInfo" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="WORK_NUM" property="workNum" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="IDCARD_NUM" property="idcardNum" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="FIRST_DAY" property="firstDay" jdbcType="TIMESTAMP" />
+    <result column="LATE_DAY" property="lateDay" jdbcType="TIMESTAMP" />
     <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
-    <result column="COORDINATE" property="coordinate" jdbcType="VARCHAR" />
-    <result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
-    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="HOME_ADDRESS" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="SEX_TYPE" property="sexType" jdbcType="VARCHAR" />
+    <result column="IDCARD_TYPE" property="idcardType" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_ID" property="organizationId" jdbcType="VARCHAR" />
+    <result column="MAIN_INDEX" property="mainIndex" jdbcType="VARCHAR" />
+    <result column="IS_ROTATION" property="isRotation" jdbcType="DECIMAL" />
     <result column="IS_EFFECTIVE" property="isEffective" jdbcType="DECIMAL" />
-    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
     <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
     <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -20,57 +26,72 @@
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, CODE, NAME, ADDRESS, COORDINATE, CONTACTS, PHONE_NUM, IS_EFFECTIVE, ORDER_NUM,
-    CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
+    ID, WORK_NUM, NAME, IDCARD_NUM, BIRTHDAY, FIRST_DAY, LATE_DAY, ADDRESS, HOME_ADDRESS, 
+    SEX_TYPE, IDCARD_TYPE, ORGANIZATION_ID, MAIN_INDEX, IS_ROTATION, IS_EFFECTIVE, CREATE_ID, 
+    CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
+    select 
     <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
+    from STAFF_MEMBER_INFO
     where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
   </select>
-  <select id="getAll" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from TOP_INSTITUTIONS_INFO
-    where DEL_STATUS = 0
-  </select>
   <delete id="deleteById" parameterType="java.lang.String" >
-    update TOP_INSTITUTIONS_INFO set DEL_STATUS = 1 where ID = #{id,jdbcType=VARCHAR}
+    update STAFF_MEMBER_INFO
+    set DEL_STATUS = 1
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.example.manager.pojo.TopInstitutionsInfo" keyProperty="ID" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.manager.pojo.StaffMemberInfo" >
     <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
-      SELECT TOP_INSTITUTIONS_INFO_SQE.nextval AS id FROM dual
+      SELECT STAFF_MEMBER_INFO_SQE.nextval AS id FROM dual
     </selectKey>
-    insert into TOP_INSTITUTIONS_INFO
+    insert into STAFF_MEMBER_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="code != null" >
-        CODE,
+      <if test="workNum != null" >
+        WORK_NUM,
       </if>
       <if test="name != null" >
         NAME,
       </if>
+      <if test="idcardNum != null" >
+        IDCARD_NUM,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="firstDay != null" >
+        FIRST_DAY,
+      </if>
+      <if test="lateDay != null" >
+        LATE_DAY,
+      </if>
       <if test="address != null" >
         ADDRESS,
       </if>
-      <if test="coordinate != null" >
-        COORDINATE,
+      <if test="homeAddress != null" >
+        HOME_ADDRESS,
       </if>
-      <if test="contacts != null" >
-        CONTACTS,
+      <if test="sexType != null" >
+        SEX_TYPE,
       </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM,
+      <if test="idcardType != null" >
+        IDCARD_TYPE,
+      </if>
+      <if test="organizationId != null" >
+        ORGANIZATION_ID,
+      </if>
+      <if test="mainIndex != null" >
+        MAIN_INDEX,
+      </if>
+      <if test="isRotation != null" >
+        IS_ROTATION,
       </if>
       <if test="isEffective != null" >
         IS_EFFECTIVE,
-      </if>
-      <if test="orderNum != null" >
-        ORDER_NUM,
       </if>
       <if test="createId != null" >
         CREATE_ID,
@@ -98,29 +119,47 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+      <if test="workNum != null" >
+        #{workNum,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="idcardNum != null" >
+        #{idcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstDay != null" >
+        #{firstDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lateDay != null" >
+        #{lateDay,jdbcType=TIMESTAMP},
+      </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="coordinate != null" >
-        #{coordinate,jdbcType=VARCHAR},
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
       </if>
-      <if test="contacts != null" >
-        #{contacts,jdbcType=VARCHAR},
+      <if test="sexType != null" >
+        #{sexType,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNum != null" >
-        #{phoneNum,jdbcType=VARCHAR},
+      <if test="idcardType != null" >
+        #{idcardType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIndex != null" >
+        #{mainIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="isRotation != null" >
+        #{isRotation,jdbcType=DECIMAL},
       </if>
       <if test="isEffective != null" >
         #{isEffective,jdbcType=DECIMAL},
-      </if>
-      <if test="orderNum != null" >
-        #{orderNum,jdbcType=DECIMAL},
       </if>
       <if test="createId != null" >
         #{createId,jdbcType=VARCHAR},
@@ -145,32 +184,50 @@
       </if>
     </trim>
   </insert>
-  <update id="update" parameterType="com.example.manager.pojo.TopInstitutionsInfo" >
-    update TOP_INSTITUTIONS_INFO
+  <update id="update" parameterType="com.example.manager.pojo.StaffMemberInfo" >
+    update STAFF_MEMBER_INFO
     <set >
-      <if test="code != null" >
-        CODE = #{code,jdbcType=VARCHAR},
+      <if test="workNum != null" >
+        WORK_NUM = #{workNum,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="idcardNum != null" >
+        IDCARD_NUM = #{idcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstDay != null" >
+        FIRST_DAY = #{firstDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lateDay != null" >
+        LATE_DAY = #{lateDay,jdbcType=TIMESTAMP},
+      </if>
       <if test="address != null" >
         ADDRESS = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="coordinate != null" >
-        COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      <if test="homeAddress != null" >
+        HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
       </if>
-      <if test="contacts != null" >
-        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      <if test="sexType != null" >
+        SEX_TYPE = #{sexType,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNum != null" >
-        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      <if test="idcardType != null" >
+        IDCARD_TYPE = #{idcardType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIndex != null" >
+        MAIN_INDEX = #{mainIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="isRotation != null" >
+        IS_ROTATION = #{isRotation,jdbcType=DECIMAL},
       </if>
       <if test="isEffective != null" >
         IS_EFFECTIVE = #{isEffective,jdbcType=DECIMAL},
-      </if>
-      <if test="orderNum != null" >
-        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
       </if>
       <if test="createId != null" >
         CREATE_ID = #{createId,jdbcType=VARCHAR},
