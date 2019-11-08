@@ -18,6 +18,8 @@ public interface IBaseService<T> {
      * @throws Exception e
      */
     void save(T entity) throws Exception;
+    /**批量添加*/
+    void save(List<T> entity) throws Exception;
 
     /**修改*/
     void update(T entity) throws Exception;

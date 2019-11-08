@@ -33,6 +33,18 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         baseDao.insert(entity);
     }
 
+    @Override
+    public void save(List<T> entity) throws Exception {
+        System.out.println("------------save-----------");
+        if(entity!=null&&entity.size()>0){
+            for (T obj : entity) {
+                if(obj!=null) {
+                    baseDao.insert(obj);
+                }
+            }
+        }
+    }
+
     /**
      * 方法名：update
      *

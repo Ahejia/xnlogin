@@ -9,6 +9,7 @@ import com.example.manager.pojo.MessageResourceRole;
 import com.example.manager.service.IApplicationResourceService;
 import com.example.manager.service.IMessageResourceRoleService;
 import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,26 +59,31 @@ public class ApplicationResourceController extends BaseController {
     @PostMapping(value = "/resource/save")
     @ApiOperation(value = "保存",notes = "保存资源信息")
     public CommonResult save(@RequestBody List<ApplicationResource> applicationResources)throws Exception{
+//        List<ApplicationResource> resources = new ArrayList<>();
+        // List<String> list = new ArrayList<>();
         List<ApplicationResource> resources = new ArrayList<>();
         if(applicationResources.size() > 0 && applicationResources != null){
             for(ApplicationResource applicationResource : applicationResources){
-                if(applicationResource.getApplicationId() == null){
+                if(StringUtils.isEmpty(applicationResource.getApplicationId())){
                     return CommonResult.failed(MessageCodeEnum.PARAMETER_IS_NULL).setMsg("应用编号不能为空");
                 }
-                //获取下一个序列号
-                String nextVal = resourceService.getNextVal();
-                applicationResource.setId(nextVal);
                 resources.add(applicationResource);
             }
+            /*
             for(ApplicationResource applicationResource: resources){
+                log.info("---保存资源信息---");
+                resourceService.save(applicationResource);
+                list.add(applicationResource.getId());
                 log.info("保存信息到关联表");
                 MessageResourceRole messageResourceRole = new MessageResourceRole();
                 messageResourceRole.setApplicationId(applicationResource.getApplicationId());
                 messageResourceRole.setResourceId(applicationResource.getId());
                 messageResourceRoleService.save(messageResourceRole);
-                log.info("---保存资源信息---");
-                resourceService.save(applicationResource);
-            }
+            }*/
+
+
+            resourceService.save(resources);
+
             return CommonResult.success().setMsg("保存成功");
         }
         return CommonResult.failed(MessageCodeEnum.PARAMETER_NOT_VALID);

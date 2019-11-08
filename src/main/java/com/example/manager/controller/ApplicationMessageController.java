@@ -175,6 +175,19 @@ public class ApplicationMessageController extends BaseController {
         return CommonResult.success().addResult("list",list);
     }
 
+    /**
+     * @Author hj
+     * @Description  查询单个应用
+     * @Date 16:17 2019/10/23
+     * @return com.example.manager.base.CommonResult
+     **/
+    @GetMapping(value = "message/get/{id}")
+    @ApiOperation(value = "根据id查询应用信息",notes = "根据id查询应用信息")
+    public CommonResult getMessageById(@PathVariable String id)throws Exception{
+        logger.info("---获取编号与名称---");
+        List<ApplicationMessage> list = messageService.getStrById(id);
+        return CommonResult.success().addResult("list",list);
+    }
 
 
 }

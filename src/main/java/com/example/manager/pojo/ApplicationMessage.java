@@ -13,6 +13,13 @@ import java.util.Date;
 **/
 @ApiModel("应用信息")
 public class ApplicationMessage extends BaseEntity {
+
+    @ApiModelProperty("logo")
+    private String logo;
+    @ApiModelProperty("标题")
+    private String title;
+    @ApiModelProperty("名字")
+    private String name;
     /**
      * 应用编号（例如00001）
      */
@@ -379,5 +386,29 @@ public class ApplicationMessage extends BaseEntity {
 
     public void setAutoFile(String autoFile) {
         this.autoFile = autoFile;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -32,6 +32,9 @@
     <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+    <result column="LOGO" jdbcType="VARCHAR" property="logo" />
+    <result column="TITTLE" jdbcType="VARCHAR" property="tittle" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -39,10 +42,17 @@
     DEPLOYMENT_TIME, MAX_CONCURRENT, STATUS, DESCRIPTION, RENEW_TIME, STOP_TIME, ORDER_NUM,
     ADMIN_ID, TYPE, AUTHENTICATION, WEB_START_URL, COMMAND_LINE, INIT_SCRIPT, AUTO_FILE,
     CREATE_ID, CREATE_NAME, CREATE_TIME, UPDATE_ID, UPDATE_NAME, UPDATE_TIME, DEL_STATUS,
-    SERIAL_NUMBER
+    SERIAL_NUMBER,LOGO, TITTLE, NAME
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
+    <include refid="Base_Column_List" />
+    from APPLICATION_INFO
+    where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
+  </select>
+
+  <select id="getStrById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
     <include refid="Base_Column_List" />
     from APPLICATION_INFO
     where ID = #{id,jdbcType=VARCHAR} and DEL_STATUS = 0
@@ -51,7 +61,13 @@
   <select id="getAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from APPLICATION_INFO where DEL_STATUS = 0
+    from APPLICATION_INFO where DEL_STATUS = 0 ORDER BY ORDER_NUM
+    <!--select a.type,a.id from application_info a ,( SELECT
+          o.id
+        FROM
+         application_info o
+        ORDER BY
+          o.order_num DESC) b where a.id=b.id group by a.type ,a.id-->
   </select>
   <delete id="deleteById" parameterType="java.lang.String" >
     update APPLICATION_INFO set DEL_STATUS = 1
@@ -59,6 +75,9 @@
   </delete>
 
   <insert id="insert" parameterType="com.example.manager.pojo.ApplicationMessage" keyProperty="id" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+      SELECT APPLICATION_INFO_SQE.nextval AS id FROM dual
+    </selectKey>
     insert into APPLICATION_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -150,6 +169,15 @@
       </if>
       <if test="serialNumber != null" >
         SERIAL_NUMBER,
+      </if>
+      <if test="logo != null">
+        LOGO,
+      </if>
+      <if test="tittle != null">
+        TITTLE,
+      </if>
+      <if test="name != null">
+        NAME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -243,6 +271,15 @@
       <if test="serialNumber != null" >
         #{serialNumber,jdbcType=VARCHAR},
       </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="update" parameterType="com.example.manager.pojo.ApplicationMessage" >
@@ -335,6 +372,15 @@
       <if test="serialNumber != null" >
         SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
       </if>
+      <if test="logo != null">
+        LOGO = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="tittle != null">
+        TITTLE = #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
@@ -381,14 +427,10 @@
   <sql id="Base_Column_List1" >
     ID, SERIAL_NUMBER, FULL_NAME, SIMPLE_NAME
   </sql>
-    <!--获取所有应用的名称与编号-->
-    <select id="getAllMessageName" resultMap="BaseResultMap1">
-      select <include refid="Base_Column_List1"/>
-      from APPLICATION_INFO and DEL_STATUS = 0
-    </select>
-
-  <!--获取当前的序列号-->
-  <select id="getNextVal" resultType="java.lang.Long">
-    select quenceMessage.nextval as id from dual
+  <!--获取所有应用的名称与编号-->
+  <select id="getAllMessageName" resultMap="BaseResultMap1">
+    select <include refid="Base_Column_List1"/>
+    from APPLICATION_INFO and DEL_STATUS = 0
   </select>
+
 </mapper>

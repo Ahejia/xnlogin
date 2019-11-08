@@ -19,6 +19,11 @@ public interface IBaseDao<T> {
     void insert(T entity) throws Exception;
 
     /**
+     * 批量添加
+     */
+    void insert(List<T> entity) throws Exception;
+
+    /**
      * 修改
      *
      * @param entity e

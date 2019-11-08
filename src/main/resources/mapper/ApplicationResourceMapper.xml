@@ -46,7 +46,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.example.manager.pojo.ApplicationResource" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.manager.pojo.ApplicationResource" keyProperty="id" useGeneratedKeys="true">
     insert into APPLICATION_RESOURCES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
