@@ -36,6 +36,12 @@
             <version>2.9.2</version>
         </dependency>
 
+        <!--对象转换-->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
         <!--email-->
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
         <dependency>

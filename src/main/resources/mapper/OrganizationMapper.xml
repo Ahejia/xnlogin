@@ -248,4 +248,11 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 
+  <!--新增sql-->
+  <!--通过岗位类型查询数据信息-->
+  <select id="getByTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    form ORGANIZATION
+    where TYPE_CODE = #{typeCode} and DEL_STATUS = 0
+  </select>
 </mapper>
